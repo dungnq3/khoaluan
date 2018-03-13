@@ -1,0 +1,29 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import utils.Defines;
+
+@Controller
+@RequestMapping("/admincp")
+public class AdminAuthController {
+	@Autowired
+	private Defines defines;
+	@ModelAttribute
+	public void addCommon(ModelMap modelMap){
+		modelMap.addAttribute("defines",defines);
+	}
+	@RequestMapping("/login")
+	public String index(){
+		return "admin.auth.login";
+	}
+	
+	@RequestMapping("/403")
+	public String error(){
+		return "admin.auth.403";
+	}
+}

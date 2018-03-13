@@ -1,0 +1,18 @@
+package entities;
+
+import java.sql.Timestamp;
+
+public class User {
+	private int id;
+	private String firstname;
+	private String lastname;
+	private String email;
+	private String password;
+	private String phone;
+	private String klass;
+	private String grade;
+	private String role;
+	private Timestamp birthday;
+	private Timestamp created_at;
+	
+}

@@ -1,0 +1,32 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import dao.UsersDAO;
+import utils.Defines;
+import utils.SlugUtils;
+
+@Controller
+public class AdminUsersController {
+	@Autowired
+	private SlugUtils slugUtils;
+	@Autowired
+	private UsersDAO userDAO;
+	
+	@RequestMapping("/admin/users")
+	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+		int offset = (page - 1)*row_count;
+		
+		modelMap.addAttribute("listUsers",userDAO.getItems(offset,row_count));
+		
+		int total = (int)Math.ceil((float)userDAO.countItems()/row_count);
+		
+		modelMap.addAttribute("total", total);
+		
+		return "admin.users.index";
+	}
+}

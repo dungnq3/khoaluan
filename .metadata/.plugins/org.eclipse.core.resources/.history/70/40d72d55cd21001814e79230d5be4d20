@@ -1,0 +1,29 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h2>Form Sign Up</h2>
+<div>
+	<form action="${pageContext.request.contextPath}/register" method="post">
+		<label for="firstname">Tên</label>
+		<input type="text" name="firstname">
+		<label for="lastname">Họ</label>
+		<input type="text" name="lastname">
+		<label for="email">Email</label>
+		<input type="text" name="email">
+		<label for="password">Mật khẩu</label>
+		<input type="password" name="password">
+		<label for="class">Lớp</label>
+		<input type="text" name="class">
+		<label for="grade">Khối</label>
+		<select name="grade">
+		  <option value="1">Khối 14</option>
+		  <option value="2">Khối 15</option>
+		  <option value="3">Khối 16</option>
+		  <option value="4">Khối 17</option>
+		</select>
+		<label for="birthday">Ngày sinh</label>
+		<input type="date" name="class">
+		<label for="phone">Số điện thoại</label>
+		<input type="text" name="phone">
+		<div class="submit"><input type="submit" value="Đăng ký"></div>
+	</form>
+</div>

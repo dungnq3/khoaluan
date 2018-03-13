@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<h2>Form Sign Up</h2>
+<div>
+	<form>
+		<label for="firstname">Tên</label>
+		<input type="text" name="firstname">
+		<label for="lastname">Họ</label>
+		<input type="text" name="lastname">
+		<label for="email">Email</label>
+		<input type="text" name="email">
+		<label for="password">Mật khẩu</label>
+		<label for="class">Lớp</label>
+		<input type="text" name="class">
+		<label for="grade">Khối</label>
+		<select name="grade">
+		  <option value="1">Khối 14</option>
+		  <option value="2">Khối 15</option>
+		  <option value="3">Khối 16</option>
+		  <option value="4">Khối 17</option>
+		</select>
+		
+		<input type="password" name="password">
+		<div class="submit"><input type="submit" value="Đăng nhập"></div>
+	</form>
+</div>

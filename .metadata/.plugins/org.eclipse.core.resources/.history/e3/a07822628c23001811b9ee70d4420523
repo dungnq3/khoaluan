@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+  <definition name="admin.template" template="/WEB-INF/templates/admin/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/admin/header.jsp" />
+        <put-attribute name="navbar" value="/WEB-INF/templates/admin/navbar.jsp" />
+     <put-attribute name="content" value="" />
+      <put-attribute name="footer" value="/WEB-INF/templates/admin/footer.jsp" />
+  </definition>
+  
+  <definition name="admin.home.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/home/index.jsp" />
+  </definition>
+   <definition name="admin.users.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/users/index.jsp" />
+  </definition>
+
+  <definition name="auth.template" template="/WEB-INF/templates/auth/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/auth/header.jsp" />
+    <put-attribute name="content" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/auth/footer.jsp" />
+  </definition>
+  
+  <definition name="admin.auth.index" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/index.jsp" />
+  </definition>
+  <definition name="admin.auth.register" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/register.jsp" />
+  </definition>
+  <definition name="admin.auth.403" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/403.jsp" />
+  </definition>
+  
+  <definition name="public.template" template="/WEB-INF/templates/public/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+    <put-attribute name="content" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+  </definition>
+  <definition name="public.clbtinhoc.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/home/index.jsp" />
+  </definition>
+  
+  
+</tiles-definitions>

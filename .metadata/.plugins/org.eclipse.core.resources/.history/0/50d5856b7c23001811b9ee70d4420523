@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<h2>Form Sign Up</h2>
+<div>
+	<form action="${pageContext.request.contextPath}/register" method="post">
+		<label for="firstname">Tên</label>
+		<input type="text" name="firstname" required>
+		<form:errors path="objUser.firstname"></form:errors>
+		<br>
+		<label for="lastname">Họ</label>
+		<input type="text" name="lastname" required>
+		<form:errors path="objUser.lastname"></form:errors>
+		<br>
+		<label for="email">Email</label>
+		<input type="text" name="email" required>
+		<form:errors path="objUser.email"></form:errors>
+		<br>
+		<label for="password">Mật khẩu</label>
+		<input type="password" name="password" required>
+		<form:errors path="objUser.password"></form:errors>
+		<br>
+		<label for="klass">Lớp</label>
+		<input type="text" name="klass" required>
+		<form:errors path="objUser.klass"></form:errors>
+		<br>
+		<label for="grade">Khối</label>
+		<select name="grade" required>
+		  <option value="1">Khối 14</option>
+		  <option value="2">Khối 15</option>
+		  <option value="3">Khối 16</option>
+		  <option value="4">Khối 17</option>
+		</select>
+		<form:errors path="objUser.grade"></form:errors>
+		<br>
+		<label for="birthday">Ngày sinh</label>
+		<input type="date" name="birthday" required>
+		<form:errors path="objUser.birthday"></form:errors>
+		<br>
+		<label for="phone">Số điện thoại</label>
+		<input type="text" name="phone" required>
+		<form:errors path="objUser.phone"></form:errors>
+		<br>
+		<div class="submit"><input type="submit" value="Đăng ký"></div>
+	</form>
+</div>
