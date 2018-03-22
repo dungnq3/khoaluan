@@ -1,0 +1,41 @@
+package dao;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import entities.Rule;
+
+@Repository
+public class RulesDAO {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	public Rule getItem(){
+		String sql = "SELECT * FROM rules";
+		return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Rule>(Rule.class));
+	}
+	public Rule getItem(int id){
+		String sql = "SELECT * FROM rules WHERE id = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Rule>(Rule.class));
+	}
+	public int addItem(Rule objRule){
+		String sql = "INSERT INTO rules(content, write_by) VALUES(?,?)";
+		return jdbcTemplate.update(sql,new Object[]{objRule.getContent(),objRule.getWrite_by()});
+	}
+	public int editItem(Rule objRule){
+		String sql = "UPDATE rules SET content = ?, write_by = ?";
+		return jdbcTemplate.update(sql,new Object[]{objRule.getContent(),objRule.getWrite_by()});
+	}
+	public int delItem(int id){
+		String sql = "DELETE FROM rules WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[]{id});
+	}
+	
+	public Integer checkRuleExist() {
+		String sql = "SELECT COUNT(id) FROM rules";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+}

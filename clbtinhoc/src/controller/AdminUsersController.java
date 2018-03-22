@@ -26,11 +26,6 @@ public class AdminUsersController {
 	@Autowired
 	private StringUtils stringUtils;
 	
-	@ModelAttribute
-	public void addCommon(ModelMap modelMap, Principal principal){
-		modelMap.addAttribute("principal", userDAO.getItem(principal.getName()));
-	}
-	
 	@RequestMapping("/admin/users")
 	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
 		int offset = (page - 1)*row_count;

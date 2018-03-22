@@ -7,11 +7,17 @@
 	<http use-expressions="true">
 		<csrf disabled="true"/>
         <intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE','ROLE_TREASURER')" />
-        <intercept-url pattern="/admin/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')"/>
-        <intercept-url pattern="/admin/users/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')"/>
-        
-        
+        <intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/users/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/rules" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/rules/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities/add" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities/edit" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities/edit/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities/del" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin/activities/history" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE','ROLE_TREASURER')" />
+        <intercept-url pattern="/admin/activities/history/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE','ROLE_TREASURER')" />
         <intercept-url pattern="/**" access="permitAll()" />
  		
  		<access-denied-handler error-page="/403" />

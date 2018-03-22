@@ -17,3 +17,6 @@
 
  <link type="text/css" href="<c:url value="/resources/admin/vendor/font-awesome/css/font-awesome.min.css"/>" rel="stylesheet">
 
+<script src="<c:url value="/resources/ckeditor/ckeditor.js"/>"></script>
+
+<script src="<c:url value="/resources/ckfinder/ckfinder.js"/>"></script>

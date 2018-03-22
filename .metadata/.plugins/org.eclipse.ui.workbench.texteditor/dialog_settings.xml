@@ -2,22 +2,24 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="paid_at" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="pay_at"/>
+			<item value="User"/>
 			<item value="sidebar-nav navbar-collapse"/>
 			<item value="ISO-8859-1"/>
 			<item value="wrap"/>
 			<item value="wrap-input1001"/>
 			<item value="wrap-login200"/>
 			<item value="wrap-input200"/>
-			<item value="wrap-input100"/>
-			<item value="wrap-"/>
 		</list>
 		<list key="replacehistory">
+			<item value="paid_at"/>
+			<item value="Activity"/>
 			<item value="UTF-8"/>
 			<item value="&lt;c:url value=&quot;/resources/auth"/>
 			<item value=""/>
