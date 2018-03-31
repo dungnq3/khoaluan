@@ -18,11 +18,11 @@ public class UsersDAO {
 	private StringUtils stringUtils;
 
 	public int addItem(User objUser) {
-		String sql = "INSERT INTO users(firstname,lastname,username,email,password,klass,birthday,phone,role,created_at)"
-				+ " VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO users(firstname,lastname,username,email,password,klass,phone,role,created_at)"
+				+ " VALUES(?,?,?,?,?,?,?,?,?)";
 		int result = jdbcTemplate.update(sql,
 				new Object[] { objUser.getFirstname(), objUser.getLastname(), objUser.getUsername(), objUser.getEmail(),
-						stringUtils.md5(objUser.getPassword()), objUser.getKlass(), objUser.getBirthday(),
+						stringUtils.md5(objUser.getPassword()), objUser.getKlass(),
 						objUser.getPhone(), objUser.getRole(), objUser.getCreated_at() });
 		return result;
 	}
@@ -60,5 +60,9 @@ public class UsersDAO {
 	public User getItem(String name) {
 		String sql = " SELECT * FROM users WHERE username = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{name},new BeanPropertyRowMapper<User>(User.class));
+	}
+	public int transferADMIN(String role, int id){
+		String sql = "UPDATE users SET role = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{role,id});
 	}
 }

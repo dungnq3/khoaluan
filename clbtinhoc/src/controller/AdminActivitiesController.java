@@ -1,5 +1,9 @@
 package controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +17,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.ActivitiesDAO;
+import dao.AttendanceDAO;
 import entities.Activity;
+import entities.Attendance;
+import utils.StringUtils;
 
 @Controller
 public class AdminActivitiesController {
 	@Autowired
 	private ActivitiesDAO activitiesDAO;
-	
+	@Autowired
+	private AttendanceDAO attendanceDAO;
+	@Autowired
+	private StringUtils stringUtils;
+
 	@RequestMapping("/admin/activities")
 	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
 		int offset = (page - 1)*row_count;
@@ -42,7 +53,8 @@ public class AdminActivitiesController {
 		if(bindingResult.hasErrors()){
 			return "admin.activities.add";
 		}
-		
+		activity.setTitle(stringUtils.html2text(activity.getTitle()));
+	
 		if(activitiesDAO.addItem(activity) > 0){
 			return "redirect:/admin/activities?msg=add-success";
 		}
@@ -61,6 +73,7 @@ public class AdminActivitiesController {
 			return "admin.activities.edit";
 		}
 		activity.setId(id);
+		activity.setTitle(stringUtils.html2text(activity.getTitle()));
 		if(activitiesDAO.editItem(activity)>0){
 			return "redirect:/admin/activities?msg=edit-success";
 		}
@@ -75,22 +88,69 @@ public class AdminActivitiesController {
 		return "redirect:/admin/activities?msg=del-error";
 	}
 	
-	@RequestMapping("/admin/activities/history")
-	public String history(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
-		int offset = (page - 1)*row_count;
-		modelMap.addAttribute("listActivities",activitiesDAO.getItems(offset,row_count));
+	@RequestMapping("/admin/activities/{id}/attendance/add")
+	public String addToAtt(ModelMap modelMap,@PathVariable("id") int id){
 		
-		int total = (int)Math.ceil((float)activitiesDAO.countItems()/row_count);
+		int times = attendanceDAO.getAttendanceTimes(id) + 1;
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String created_at = sdf.format(dt);
+		Attendance attendance = new Attendance(0, id, created_at, times);
 		
-		modelMap.addAttribute("total", total);
-		
-		return "admin.activities.history";
+		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
+		modelMap.addAttribute("listUsers", activitiesDAO.getItems(id));
+		return "admin.activities.addAtt";
 	}
 	
-	@RequestMapping("/admin/activities/history/{id}")
+	@RequestMapping(value="/admin/activities/{id}/attendance/add", method=RequestMethod.POST)
+	public String addToAtt(@PathVariable("id") int id){
+		
+		int times = attendanceDAO.getAttendanceTimes(id) + 1;
+		java.util.Date dt = new java.util.Date();
+		java.text.SimpleDateFormat sdf = 
+			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String created_at = sdf.format(dt);
+		Attendance attendance = new Attendance(0, id, created_at, times);
+		
+		return "admin.activities.addAtt";
+	}
+	
+	@RequestMapping("/admin/activities/{id}/attendance/{idAtt}")
+	public String getAtt(ModelMap modelMap,@PathVariable("id") int id,@PathVariable("idAtt") int idAtt){
+		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
+		modelMap.addAttribute("listUsers", attendanceDAO.getAttDetail(idAtt));
+		return "admin.activities.attendance";
+	}
+	
+	@RequestMapping("/admin/activities/{id}/attendance")
+	public String attendance(ModelMap modelMap,@PathVariable("id") int id){
+		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
+		modelMap.addAttribute("listAtt",attendanceDAO.getListAttendance(id));
+		return "admin.activities.attendance";
+	}
+	
+	@RequestMapping("/admin/activities/{id}")
 	public String detail(@PathVariable("id") int id,ModelMap modelMap){
 		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
 		modelMap.addAttribute("listActivityUsers", activitiesDAO.getItems(id));
 		return "admin.activities.detail";
+	}
+	@RequestMapping("/admin/activities/{id}/print")
+	public String print(@PathVariable("id") int id,ModelMap modelMap){
+		modelMap.addAttribute("activity", activitiesDAO.getItem(id));
+		modelMap.addAttribute("listUsers", activitiesDAO.getItems(id));
+		return "admin.activities.print";
+	}
+	
+	@RequestMapping(value="/admin/activities/status",method=RequestMethod.POST)
+	public void getStatus(@RequestParam("ajId")int id,@RequestParam("ajStatus") int status,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		if(status == 0 ){
+			activitiesDAO.setStatus(id, 1);
+				response.getWriter().print( " <a href=\"javascript:void(0)\" onclick=\"return getStatus("+id+",1)\" ><img src="+request.getContextPath()+"/resources/admin/image/open-sign-up.jpg></a> ");
+		}else {																										
+			activitiesDAO.setStatus(id, 0);
+				response.getWriter().print( " <a href=\"javascript:void(0)\" onclick=\"return getStatus("+id+",0)\" ><img src="+request.getContextPath()+"/resources/admin/image/close-sign-up.jpg></a> ");
+		}
 	}
 }

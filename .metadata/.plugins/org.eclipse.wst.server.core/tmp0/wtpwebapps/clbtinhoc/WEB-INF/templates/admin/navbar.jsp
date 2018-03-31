@@ -22,12 +22,11 @@
 				<i class="fa fa-caret-down"></i>
 		</a>
 			<ul class="dropdown-menu dropdown-user">
-				<li><a href="#"><i class="fa fa-user fa-fw"></i> User
-						Profile</a></li>
-				<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+				<li><a href="#"><i class="fa fa-user fa-fw"></i> Thông tin
+						tài khoản</a></li>
 				<li class="divider"></li>
 				<li><a href="${pageContext.request.contextPath}/logout"><i
-						class="fa fa-sign-out fa-fw"></i> Logout</a></li>
+						class="fa fa-sign-out fa-fw"></i> Đăng xuất</a></li>
 			</ul></li>
 	</ul>
 
@@ -36,24 +35,24 @@
 			<ul class="nav" id="side-menu">
 				<li><a href="${pageContext.request.contextPath}/admin"><i
 						class="fa fa-dashboard fa-fw"></i> Trang chủ</a></li>
-				<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')">
-					<li><a href="${pageContext.request.contextPath}/admin/users"><i
-							class="fa fa-dashboard fa-fw"></i> Quản lý thành viên</a></li>
-					<li><a href="${pageContext.request.contextPath}/admin/rules"><i
-							class="fa fa-dashboard fa-fw"></i> Quản lý nội quy</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/activities"><i
-							class="fa fa-dashboard fa-fw"></i> Quản lý hoạt động<span
-							class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a
-								href="${pageContext.request.contextPath}/admin/activities">Hoạt
-									động</a></li>
-							<li><a
-								href="${pageContext.request.contextPath}/admin/activities/history">Lịch
-									sử đăng ký</a></li>
-						</ul></li>
-				</sec:authorize>
+				<li><a href="${pageContext.request.contextPath}/admin/users"><i
+						class="fa fa-dashboard fa-fw"></i> Quản lý thành viên</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/rules"><i
+						class="fa fa-dashboard fa-fw"></i> Quản lý nội quy</a></li>
+				<li><a
+					href="${pageContext.request.contextPath}/admin/activities"><i
+						class="fa fa-dashboard fa-fw"></i> Quản lý hoạt
+						động</a></li>
+
+				<li><a href="#"><i class="fa fa-dashboard fa-fw"></i> Quản
+						lý tin tức<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="${pageContext.request.contextPath}/admin/news">Tin
+								tức</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/admin/categories">Loại
+								tin</a></li>
+					</ul></li>
 			</ul>
 		</div>
 	</div>

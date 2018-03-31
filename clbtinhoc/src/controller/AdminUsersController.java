@@ -27,14 +27,14 @@ public class AdminUsersController {
 	private StringUtils stringUtils;
 	
 	@RequestMapping("/admin/users")
-	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+	public String index(Principal principal,ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
 		int offset = (page - 1)*row_count;
 		modelMap.addAttribute("listUsers",userDAO.getItems(offset,row_count));
 		
 		int total = (int)Math.ceil((float)userDAO.countItems()/row_count);
 		
 		modelMap.addAttribute("total", total);
-		
+		modelMap.addAttribute("user", userDAO.getItem(principal.getName()));
 		return "admin.users.index";
 	}
 	
@@ -48,8 +48,13 @@ public class AdminUsersController {
 		if(bindingResult.hasErrors()){
 			return "admin.users.add";
 		}
+		user.setFirstname(stringUtils.html2text(user.getFirstname()));
+		user.setLastname(stringUtils.html2text(user.getLastname()));
+		user.setEmail(stringUtils.html2text(user.getEmail()));
+		user.setKlass(stringUtils.html2text(user.getKlass()));
+		user.setUsername(stringUtils.html2text(user.getUsername()));
 		if(userDAO.checkUserExist(user.getUsername()) > 0){
-			return "redirect:/admin/users/add?msg=exist";
+			return "redirect:/admin/users/add?msg=exist-name";
 		}
 		
 		user.setCreated_at(new Timestamp(System.currentTimeMillis()));
@@ -90,4 +95,14 @@ public class AdminUsersController {
 		}
 		return "redirect:/admin/users?msg=del-error";
 	}
+	@RequestMapping("/admin/transfer/{id}")
+	public String transfer(Principal principal,@PathVariable("id") int id){
+		User user = userDAO.getItem(principal.getName());
+		if(userDAO.transferADMIN("ADMIN", id)>0){
+			userDAO.transferADMIN("MEMBER", user.getId());
+			return "redirect:/logout";
+		}
+		return "redirect:/admin/users";
+	}
+	
 }

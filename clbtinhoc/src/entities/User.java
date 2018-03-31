@@ -34,10 +34,8 @@ public class User {
 	
 	@NotEmpty(message="Lớp bỏ trống")
 	private String klass;
-	
+
 	private String role;
-	
-	private String birthday;
 	
 	private Timestamp created_at;
 	
@@ -46,7 +44,7 @@ public class User {
 	}
 
 	public User(int id,String username, String firstname, String lastname, String email, String password, String phone, String klass,
-			 String role, String birthday, Timestamp created_at) {
+			 String role, Timestamp created_at) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -57,7 +55,6 @@ public class User {
 		this.phone = phone;
 		this.klass = klass;
 		this.role = role;
-		this.birthday = birthday;
 		this.created_at = created_at;
 	}
 
@@ -131,14 +128,6 @@ public class User {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
 	}
 
 	public Timestamp getCreated_at() {

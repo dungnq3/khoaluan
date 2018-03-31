@@ -21,16 +21,6 @@
 					</div>
 				</div>
 			</div>
-			<sec:authorize access="hasRole('ROLE_TREASURER')">
-			<a href="${pageContext.request.contextPath}/admin/activities/history">
-				<div class="panel-footer">
-					<span class="pull-left">Truy cập</span> <span
-						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-					<div class="clearfix"></div>
-				</div>
-			</a>
-			</sec:authorize>
-			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')">
 			<a href="${pageContext.request.contextPath}/admin/activities">
 				<div class="panel-footer">
 					<span class="pull-left">Truy cập</span> <span
@@ -38,7 +28,6 @@
 					<div class="clearfix"></div>
 				</div>
 			</a>
-			</sec:authorize>
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">

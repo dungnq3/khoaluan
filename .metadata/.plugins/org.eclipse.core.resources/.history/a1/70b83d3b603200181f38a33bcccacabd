@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+       
+<tiles-definitions>
+  <definition name="admin.template" template="/WEB-INF/templates/admin/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/admin/header.jsp" />
+        <put-attribute name="navbar" value="/WEB-INF/templates/admin/navbar.jsp" />
+     <put-attribute name="content" value="" />
+      <put-attribute name="footer" value="/WEB-INF/templates/admin/footer.jsp" />
+  </definition>
+    <definition name="print.template" template="/WEB-INF/templates/print/template.jsp">
+     <put-attribute name="header" value="/WEB-INF/templates/print/header.jsp" />
+     <put-attribute name="content" value="" />
+  </definition>
+  
+  <definition name="admin.home.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/home/index.jsp" />
+  </definition>
+   <definition name="admin.users.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/users/index.jsp" />
+  </definition>
+   <definition name="admin.users.add" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/users/add.jsp" />
+  </definition>
+ <definition name="admin.users.edit" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/users/edit.jsp" />
+  </definition>
+   <definition name="admin.rules.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/rules/index.jsp" />
+  </definition>
+   <definition name="admin.rules.edit" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/rules/edit.jsp" />
+  </definition> 
+   <definition name="admin.rules.add" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/rules/add.jsp" />
+  </definition> 
+   <definition name="admin.activities.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/index.jsp" />
+  </definition>
+   <definition name="admin.activities.edit" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/edit.jsp" />
+  </definition> 
+   <definition name="admin.activities.add" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/add.jsp" />
+  </definition> 
+  <definition name="admin.activities.history" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/history.jsp" />
+  </definition>
+  <definition name="admin.activities.detail" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/detail.jsp" />
+  </definition>
+  <definition name="admin.activities.print" extends="print.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/print.jsp" />
+  </definition>
+   <definition name="admin.news.index" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/news/index.jsp" />
+  </definition>
+   <definition name="admin.news.edit" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/news/edit.jsp" />
+  </definition> 
+   <definition name="admin.news.add" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/news/add.jsp" />
+  </definition>
+
+  <definition name="auth.template" template="/WEB-INF/templates/auth/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/auth/header.jsp" />
+    <put-attribute name="content" value="" />
+  </definition>
+  
+  <definition name="admin.auth.index" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/index.jsp" />
+  </definition>
+  <definition name="admin.auth.register" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/register.jsp" />
+  </definition>
+  <definition name="admin.auth.403" extends="auth.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/auth/login/403.jsp" />
+  </definition>
+  
+  <definition name="public.template" template="/WEB-INF/templates/public/template.jsp">
+    <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
+    <put-attribute name="content" value="" />
+    <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
+  </definition>
+  <definition name="public.clbtinhoc.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/home/index.jsp" />
+  </definition>
+  
+  
+</tiles-definitions>

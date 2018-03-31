@@ -6,6 +6,55 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Quản lý tài khoản</h1>
+		<c:if test="${param['msg'] eq 'add-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'add-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'access-denied'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Từ chối truy cập
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -23,9 +72,8 @@
 							<tr>
 								<th>ID</th>
 								<th>Tài khoản</th>
-								<th>Họ</th>
-								<th>Tên</th>
-								<th>Lớp</th>
+								<th>Họ và tên</th>
+								<th>Chức vụ</th>
 								<th>Email</th>
 								<th>Số điện thoại</th>
 								<th>Chức năng</th>
@@ -36,18 +84,50 @@
 								<tr>
 									<td>${objUser.id}</td>
 									<td>${objUser.username}</td>
-									<td>${objUser.lastname}</td>
-									<td>${objUser.firstname}</td>
-									<td>${objUser.klass}</td>
+									<td>${objUser.lastname} ${objUser.firstname}</td>
+									<c:choose>
+										<c:when test="${objUser.role eq 'ADMIN'}">
+											<td>Chủ nhiệm</td>
+										</c:when>
+										<c:when test="${objUser.role eq 'VICE'}">
+											<td>Phó chủ nhiệm</td>
+										</c:when>
+										<c:when test="${objUser.role eq 'TREASURER'}">
+											<td>Thủ quỹ</td>
+										</c:when>
+										<c:when test="${objUser.role eq 'ADVISER'}">
+											<td>Ban cố vấn</td>
+										</c:when>
+										<c:when test="${objUser.role eq 'COMMISIONER'}">
+											<td>Ủy viên</td>
+										</c:when>
+										<c:otherwise>
+											<td>Thành viên</td>
+										</c:otherwise>
+									</c:choose>
 									<td>${objUser.email}</td>
 									<td>${objUser.phone}</td>
 									<c:set var="editUrl"
 										value="${pageContext.request.contextPath}/admin/users/edit/${objUser.id}"></c:set>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/users/del/${objUser.id}"></c:set>
-									<td><a href="${editUrl}">Cập nhập</a> | <a
-										onclick="return confirm('Xóa tài khoản này?')"
-										href="${delUrl}">Xóa</a></td>
+									<td>
+										<a href="${editUrl}">
+											<img src="<c:url value="/resources/admin/image/icon-update.png"/>" alt="Cập nhập" width="20" height="20" />
+										</a>
+										<c:if test="${objUser.role ne 'ADMIN'}">
+										| <a onclick="return confirm('Xóa tài khoản này?')" href="${delUrl}">
+										<img src="<c:url value="/resources/admin/image/icon-delete.png"/>" alt="Xóa" width="20" height="20" />
+										</a>
+										
+										<c:if
+											test="${user.role eq 'ADMIN'}"> | <a
+												onclick="return confirm('Chuyển quyền chủ nhiệm câu lạc bộ?')"
+												href="${pageContext.request.contextPath}/admin/transfer/${objUser.id}"><img
+												src="<c:url value="/resources/admin/image/transfer-icon.png"/>"
+												alt="Xóa" width="20" height="20" /></a>
+										</c:if></td>
+										</c:if> 
 								</tr>
 							</c:forEach>
 						</tbody>

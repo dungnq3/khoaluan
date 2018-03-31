@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+   
+   <div style="text-align: center">
+   	<h1>Danh Sách</h1>
+   		<h1>${activity.title}</h1>
+   		<div style="margin: 0 auto; width: 500px;">
+   		<div style="float:left; text-align: left; font-size: 16px;">
+   			<div>Ngày bắt đầu hoạt động: ${activity.start_at}</div>
+   			<div>Ngày kết thúc hoạt động: ${activity.end_at}</div>
+   		</div>
+   		<div style="float:right;text-align: left; font-size: 16px;">
+   			<div>Số lượng thành viên đăng ký: ${activity.joined}</div>
+   			<div>Phí hoạt động: ${activity.fee}</div>
+   		</div>
+   		<div style="clear:both"></div>
+   		</div>
+   		<div>
+   			<table>
+   				<tr>
+   					<th>STT</th>
+   					<th>Tên thành viên</th>
+   					<th>Lớp</th>
+   					<th>Ký tên</th>
+   				</tr>
+   			</table>
+   		</div>
+   </div>

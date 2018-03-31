@@ -48,11 +48,6 @@
 						</div>
 						
 						<div class="wrap-input1001 validate-input">
-							<input class="input1001" type="date" name="birthday">
-							<span class="focus-input1001" data-placeholder="Ngày sinh"></span>
-						</div>
-						
-						<div class="wrap-input1001 validate-input">
 							<input class="input1001" type="text" name="phone">
 							<span class="focus-input1001" data-placeholder="Số điện thoại"></span>
 						</div>

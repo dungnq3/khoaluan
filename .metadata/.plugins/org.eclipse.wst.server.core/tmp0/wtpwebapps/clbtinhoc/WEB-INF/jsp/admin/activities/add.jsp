@@ -2,9 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Thêm hoạt động</h1>
+	</div>
+	<div style="color: red;padding: 20px;">
+		<c:if test="${objActivity ne null}">
+				<p><form:errors path="objActivity.title"></form:errors></p>
+				<p><form:errors path="objActivity.content"></form:errors></p>
+				<p><form:errors path="objActivity.start_at"></form:errors></p>
+				<p><form:errors path="objActivity.end_at"></form:errors></p>
+				<p><form:errors path="objActivity.fee"></form:errors></p>
+				<p><form:errors path="objActivity.limited"></form:errors></p>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -33,7 +45,7 @@
 								
 								<div class="form-group">
 									<label>Phí tham gia (VNĐ)</label> <input class="form-control"
-										type="number" min = "0" name="fee">
+										type="number" min = "0" value="0" name="fee">
 								</div>
 								
 							</div>
@@ -44,7 +56,7 @@
 								</div>
 								<div class="form-group">
 									<label>Số lượng giới hạn</label> <input class="form-control"
-										type="number" min = "1" name="limited">
+										type="number" min = "1" value="1" name="limited">
 								</div>
 							</div>
 							<div style="clear:both"></div>

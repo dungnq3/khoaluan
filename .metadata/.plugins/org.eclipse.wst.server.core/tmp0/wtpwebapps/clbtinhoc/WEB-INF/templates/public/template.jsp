@@ -7,6 +7,8 @@
 	<tiles:insertAttribute name="header"></tiles:insertAttribute>
 </head>
 <body>
+	<tiles:insertAttribute name="banner"></tiles:insertAttribute>
+	<tiles:insertAttribute name="navbar"></tiles:insertAttribute>
 	<div class="content">
 		<tiles:insertAttribute name="content"></tiles:insertAttribute>
 	</div>

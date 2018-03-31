@@ -6,6 +6,55 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Quản lý tài khoản</h1>
+			<c:if test="${param['msg'] eq 'add-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'add-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'rule-exist'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Nội quy đã tồn tại
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -24,9 +73,9 @@
 					Người viết: <a href="${pageContext.request.contextPath}/">${writer.lastname} ${writer.firstname}</a>
 					<br>
 					<div style="float:right">
-						<a href="${pageContext.request.contextPath}/admin/rules/edit/${objRule.id}">Cập nhập</a>
+						<a href="${pageContext.request.contextPath}/admin/rules/edit/${objRule.id}"><img src="<c:url value="/resources/admin/image/icon-update.png"/>" alt="Xóa" width="20" height="20" /></a>
 						 | 
-						<a onclick="return confirm('Bạn chắc chắn muốn xóa nội dung này?')" href="${pageContext.request.contextPath}/admin/rules/del/${objRule.id}">Xóa</a>
+						<a onclick="return confirm('Bạn chắc chắn muốn xóa nội dung này?')" href="${pageContext.request.contextPath}/admin/rules/del/${objRule.id}"><img src="<c:url value="/resources/admin/image/icon-delete.png"/>" alt="Xóa" width="20" height="20" /></a>
 					</div>
 				</c:if>
 				<c:if test="${objRule eq null}">

@@ -34,8 +34,11 @@
 											<c:when test="${role == 'TREASURER'}">
 												Thủ quỹ
 											</c:when>
-											<c:when test="${role == 'TEACHER'}">
-												Giảng viên
+											<c:when test="${role == 'COMMISSIONER'}">
+												Ủy viên
+											</c:when>
+											<c:when test="${role == 'ADVISER'}">
+												Ban cố vấn
 											</c:when>
 											<c:otherwise>
 												Thành viên
@@ -45,11 +48,10 @@
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
                                     	<option value="VICE">Phó nhiệm</option>
                                     </sec:authorize> 
-                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_VICE')">
-                                    	<option value="TREASURER">Thủ quỹ</option>
-                                    </sec:authorize>
+                                    <option value="TREASURER">Thủ quỹ</option>
                                     <option value="MEMBER">Thành viên</option>
-                                    <option value="TEACHER">Giảng viên</option>
+                                    <option value="COMMISSIONER">Ủy viên</option>
+                                    <option value="ADVISER">Ban cố vấn</option>
                                 </select>
 								<p class="help-block">Ví dụ: Thành viên</p>
 							</div>

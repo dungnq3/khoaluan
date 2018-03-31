@@ -4,6 +4,8 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import org.jsoup.Jsoup;
+
 public class StringUtils {
 	
 	public String md5(String str){
@@ -20,5 +22,8 @@ public class StringUtils {
 		}
 		return result;
 	}
-
+	
+	public  String html2text(String html) {
+	    return Jsoup.parse(html).text();
+	}
 }

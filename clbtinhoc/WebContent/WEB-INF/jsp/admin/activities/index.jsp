@@ -6,6 +6,48 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Quản lý hoạt động</h1>
+			<c:if test="${param['msg'] eq 'add-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'add-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'edit-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Cập nhập không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa không thành công
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -21,36 +63,71 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th width="5%">ID</th>
 								<th>Tên hoạt động</th>
-								<th>Ngày đăng ký</th>
-								<th>Số lượng giới hạn</th>
+								<th width="20%">Ngày đăng ký - Kết thúc</th>
+								<th>Số lượng tối đa</th>
 								<th>Đã đăng ký</th>
 								<th>Trạng thái</th>
-								<th>Chức năng</th>
+								<th width="10%">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${listActivities}" var="objActivity">
 								<tr>
 									<td>${objActivity.id}</td>
-									<td>${objActivity.title}</td>
+									<td><a href="${pageContext.request.contextPath}/admin/activities/${objActivity.id}">${objActivity.title}</a></td>
 									<td>${objActivity.start_at} - ${objActivity.end_at}</td>
 									<td>${objActivity.limited}</td>
 									<td>${objActivity.joined}</td>
-									<td>${objActivity.status}</td>
+									
+									<td class="ajax${objActivity.id}">
+										<c:if test="${objActivity.status eq 1}">
+											<a href="javascript:void(0)" onclick="return getStatus(${objActivity.id},${objActivity.status})">
+												<img src="<c:url value="/resources/admin/image/open-sign-up.jpg"/>"/>
+											</a>
+										</c:if>
+										<c:if test="${objActivity.status eq 0}">
+											<a href="javascript:void(0)" onclick="return getStatus(${objActivity.id},${objActivity.status})">
+												<img src="<c:url value="/resources/admin/image/close-sign-up.jpg"/>"/>
+											</a>
+										</c:if>
+									</td>
+									
+									
 									<c:set var="editUrl"
 										value="${pageContext.request.contextPath}/admin/activities/edit/${objActivity.id}"></c:set>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/activities/del/${objActivity.id}"></c:set>
-									<td><a href="${editUrl}">Cập nhập</a> | <a
+									<td><a href="${editUrl}"><img src="<c:url value="/resources/admin/image/icon-update.png"/>" width="20" height="20" alt="Cập nhập"/></a> | <a
 										onclick="return confirm('Xóa hoạt động này?')"
-										href="${delUrl}">Xóa</a></td>
+										href="${delUrl}"><img src="<c:url value="/resources/admin/image/icon-delete.png"/>"  width="20" height="20" alt="Xóa"/></a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<script type="text/javascript">
+					function getStatus(id,status){
+						if (confirm('Thay đổi trạng thái đóng mở cửa đăng ký?')) {
+							$.ajax({
+								url: '${pageContext.request.contextPath}/admin/activities/status',
+								type: 'POST',
+								cache: false,
+								data: {
+										ajId: id,
+										ajStatus: status
+										},
+								success: function(data){
+									$('.ajax'+id).html(data);
+								},
+								error: function (){
+									alert("Lỗi");
+								}
+							});
+						};
+					};					
+				</script>
 				<div class="text-center">
 					<ul class="pagination">
 						<c:forEach var="i" begin="1" end="${total}">
