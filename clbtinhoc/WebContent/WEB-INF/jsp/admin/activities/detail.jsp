@@ -19,26 +19,29 @@
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
+				<c:if test="${listActivityUsers ne null}">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>Tên thành viên</th>
-								<th>Lớp</th>
-								<th>Điểm danh</th>
+								<th style="text-align: center;">ID</th>
+								<th style="text-align: center;">Tên thành viên</th>
+								<th style="text-align: center;">Lớp</th>
+								<th style="text-align: center;">Ngày đăng ký</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${listActivityUsers}" var="objActivityUser" >
 								<tr>
-									<td>${objActivityUser.id}</td>
+									<td style="text-align: center;" >${objActivityUser.id}</td>
 									<td>${objActivityUser.lastname} ${objActivityUser.firstname}</td> 
-									<td>${objActivityUser.klass}</td>
-									<td>${objActivityUser.joined_at}</td>
+									<td style="text-align: center;">${objActivityUser.klass}</td>
+									<td style="text-align: center;">${objActivityUser.joined_at}</td>
 								</tr>
 							</c:forEach>
+							
 						</tbody>
 					</table>
+					</c:if>
 				</div>
 			</div>
 		</div>

@@ -54,6 +54,12 @@
   <definition name="admin.activities.print" extends="print.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/print.jsp" />
   </definition>
+  <definition name="admin.activities.attdetail" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/attdetail.jsp" />
+  </definition>
+    <definition name="admin.activities.addattendance" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/activities/addattendance.jsp" />
+  </definition>
    <definition name="admin.news.index" extends="admin.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/news/index.jsp" />
   </definition>

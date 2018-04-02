@@ -5,19 +5,50 @@ public class Attendance_Detail {
 	private int id_user;
 	private String firstname;
 	private String lastname;
+	private String klass;
 	private int status;
-	
+	private int absent;
 	public Attendance_Detail() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Attendance_Detail(int id, int id_user, String firstname, String lastname, int status) {
+	public Attendance_Detail(int id, int id_user, String firstname, String lastname, String klass, int status) {
 		super();
 		this.id = id;
 		this.id_user = id_user;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.klass = klass;
 		this.status = status;
+	}
+ 
+	
+	
+	public Attendance_Detail(int id, int id_user, String firstname, String lastname,String klass, int status, int absent) {
+		super();
+		this.id = id;
+		this.id_user = id_user;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.klass = klass;
+		this.status = status;
+		this.absent = absent;
+	}
+	
+	public String getKlass() {
+		return klass;
+	}
+
+	public void setKlass(String klass) {
+		this.klass = klass;
+	}
+
+	public int getAbsent() {
+		return absent;
+	}
+
+	public void setAbsent(int absent) {
+		this.absent = absent;
 	}
 
 	public int getId() {

@@ -27,7 +27,7 @@ public class AdminUsersController {
 	private StringUtils stringUtils;
 	
 	@RequestMapping("/admin/users")
-	public String index(Principal principal,ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+	public String index(Principal principal,ModelMap modelMap, @RequestParam(value="page", defaultValue="10") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
 		int offset = (page - 1)*row_count;
 		modelMap.addAttribute("listUsers",userDAO.getItems(offset,row_count));
 		

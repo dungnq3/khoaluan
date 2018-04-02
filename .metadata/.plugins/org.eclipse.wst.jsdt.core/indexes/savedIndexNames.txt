@@ -1,11 +1,9 @@
 INDEX VERSION 1.3+D:\KhoaLuan\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2277506847.index
-1337823973.index
-1163773390.index
-3630911742.index
 1972625803.index
+3630911742.index
+1337823973.index
+2277506847.index
+1163773390.index
 290675744.index
 3643581123.index
-692987183.index
 1062154404.index
-6111431.index

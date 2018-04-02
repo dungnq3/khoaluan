@@ -13,7 +13,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				${activity_name} <a style="float: right"
-					href="${pageContext.request.contextPath}/admin/activities/${id}/create-attendance">Tạo lần điểm danh mới</a>
+					href="${pageContext.request.contextPath}/admin/activities/${id}/attendance/add">Tạo lần điểm danh mới</a>
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
@@ -38,16 +38,28 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<c:if test="${listUser ne null}">
+					<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Họ và tên</th>
+								<th>Số ngày vắng</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${listUser}" var="objUser">
+								<tr>
+									<td>${objUser.id}</td>
+									<td>${objUser.lastname} ${objUser.firstname}</td>
+									<td>${objUser.absent}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
-				<div class="text-center">
-					<ul class="pagination">
-						<c:forEach var="i" begin="1" end="${total}">
-							<c:set var="url"
-								value="${pageContext.request.contextPath}/admin/activities?p=${i}"></c:set>
-							<li><a href="${url}" title="">${i}</a></li>
-						</c:forEach>
-					</ul>
-				</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

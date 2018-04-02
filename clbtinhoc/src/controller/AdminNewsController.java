@@ -30,7 +30,7 @@ public class AdminNewsController {
 	private UsersDAO usersDAO;
 	
 	@RequestMapping("/admin/news")
-	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
 		int offset = (page - 1)*row_count;
 		modelMap.addAttribute("listNews",newsDAO.getItems(offset, row_count));
 		int total = (int)Math.ceil((float)newsDAO.countItems()/row_count);

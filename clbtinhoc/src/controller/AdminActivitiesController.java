@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import dao.ActivitiesDAO;
 import dao.AttendanceDAO;
 import entities.Activity;
+import entities.Activity_Users;
 import entities.Attendance;
 import utils.StringUtils;
 
@@ -32,7 +35,7 @@ public class AdminActivitiesController {
 	private StringUtils stringUtils;
 
 	@RequestMapping("/admin/activities")
-	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+	public String index(ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
 		int offset = (page - 1)*row_count;
 		modelMap.addAttribute("listActivities",activitiesDAO.getItems(offset,row_count));
 		
@@ -81,52 +84,64 @@ public class AdminActivitiesController {
 	}
 	@RequestMapping("/admin/activities/del/{id}")
 	public String del(@PathVariable("id")int id){
-		
-		if(activitiesDAO.delItem(id)>0){
-			return "redirect:/admin/activities?msg=del-success";
+		if(activitiesDAO.getItem(id).getStatus() == 3){
+			if(activitiesDAO.delItem(id)>0){
+				return "redirect:/admin/activities?msg=del-success";
+			}
 		}
 		return "redirect:/admin/activities?msg=del-error";
 	}
 	
 	@RequestMapping("/admin/activities/{id}/attendance/add")
 	public String addToAtt(ModelMap modelMap,@PathVariable("id") int id){
-		
-		int times = attendanceDAO.getAttendanceTimes(id) + 1;
-		java.util.Date dt = new java.util.Date();
-		java.text.SimpleDateFormat sdf = 
-			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String created_at = sdf.format(dt);
-		Attendance attendance = new Attendance(0, id, created_at, times);
-		
-		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
-		modelMap.addAttribute("listUsers", activitiesDAO.getItems(id));
-		return "admin.activities.addAtt";
+		if(activitiesDAO.getItem(id).getStatus() == 0 && activitiesDAO.getItems(id).size()>0){
+			modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
+			modelMap.addAttribute("times", attendanceDAO.getAttendanceTimes(id) + 1);
+			modelMap.addAttribute("listUsers", activitiesDAO.getItems(id));
+			return "admin.activities.addattendance";
+		}
+		return "redirect:/admin/activities/"+id+"/attendance?msg=activity-closed";
 	}
 	
 	@RequestMapping(value="/admin/activities/{id}/attendance/add", method=RequestMethod.POST)
-	public String addToAtt(@PathVariable("id") int id){
-		
+	public String addToAtt(@PathVariable("id") int id, HttpServletRequest request){
+		String[] ids = request.getParameterValues("ids");
 		int times = attendanceDAO.getAttendanceTimes(id) + 1;
 		java.util.Date dt = new java.util.Date();
 		java.text.SimpleDateFormat sdf = 
 			     new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String created_at = sdf.format(dt);
 		Attendance attendance = new Attendance(0, id, created_at, times);
-		
-		return "admin.activities.addAtt";
+		if(attendanceDAO.addAttendance(attendance)>0){
+			Attendance attendance2 = attendanceDAO.getItem(created_at);
+			List<Activity_Users> listUser = activitiesDAO.getItems(id);
+			for(Activity_Users objUser : listUser){
+				for(int i = 0;i<ids.length;i++){
+					if(Arrays.asList(ids).contains(String.valueOf(objUser.getId_user()))){
+						attendanceDAO.addAttDetail(attendance2.getId(), objUser.getId_user(), 1);
+					} else {
+						attendanceDAO.addAttDetail(attendance2.getId(), objUser.getId_user(), 0);
+					}
+				}
+			}
+			return "redirect:/admin/activities/"+id+"/attendance?msg=attendance-success";
+		}
+		return "redirect:/admin/activities/"+id+"/attendance?attendance-error";
 	}
 	
 	@RequestMapping("/admin/activities/{id}/attendance/{idAtt}")
 	public String getAtt(ModelMap modelMap,@PathVariable("id") int id,@PathVariable("idAtt") int idAtt){
 		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
+		modelMap.addAttribute("times",attendanceDAO.getAttTimes(idAtt));
 		modelMap.addAttribute("listUsers", attendanceDAO.getAttDetail(idAtt));
-		return "admin.activities.attendance";
+		return "admin.activities.attdetail";
 	}
 	
 	@RequestMapping("/admin/activities/{id}/attendance")
 	public String attendance(ModelMap modelMap,@PathVariable("id") int id){
 		modelMap.addAttribute("activity_name", activitiesDAO.getItem(id).getTitle());
 		modelMap.addAttribute("listAtt",attendanceDAO.getListAttendance(id));
+		modelMap.addAttribute("listUser",attendanceDAO.getActivityDetail(id));
 		return "admin.activities.attendance";
 	}
 	

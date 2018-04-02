@@ -63,25 +63,25 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th width="5%">ID</th>
+								<th style="text-align: center;" width="5%">ID</th>
 								<th>Tên hoạt động</th>
-								<th width="20%">Ngày đăng ký - Kết thúc</th>
-								<th>Số lượng tối đa</th>
-								<th>Đã đăng ký</th>
-								<th>Trạng thái</th>
-								<th width="10%">Chức năng</th>
+								<th style="text-align: center;" width="20%">Ngày đăng ký - Kết thúc</th>
+								<th style="text-align: center;">Số lượng tối đa</th>
+								<th style="text-align: center;">Đã đăng ký</th>
+								<th style="text-align: center;">Trạng thái</th>
+								<th  style="text-align: center;" width="10%">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach items="${listActivities}" var="objActivity">
 								<tr>
-									<td>${objActivity.id}</td>
+									<td style="text-align: center;">${objActivity.id}</td>
 									<td><a href="${pageContext.request.contextPath}/admin/activities/${objActivity.id}">${objActivity.title}</a></td>
-									<td>${objActivity.start_at} - ${objActivity.end_at}</td>
-									<td>${objActivity.limited}</td>
-									<td>${objActivity.joined}</td>
+									<td style="text-align: center;">${objActivity.start_at} - ${objActivity.end_at}</td>
+									<td style="text-align: center;">${objActivity.limited}</td>
+									<td style="text-align: center;">${objActivity.joined}</td>
 									
-									<td class="ajax${objActivity.id}">
+									<td style="text-align: center;" class="ajax${objActivity.id}">
 										<c:if test="${objActivity.status eq 1}">
 											<a href="javascript:void(0)" onclick="return getStatus(${objActivity.id},${objActivity.status})">
 												<img src="<c:url value="/resources/admin/image/open-sign-up.jpg"/>"/>
