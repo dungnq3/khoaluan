@@ -20,3 +20,13 @@
 <script src="<c:url value="/resources/ckeditor/ckeditor.js"/>"></script>
 
 <script src="<c:url value="/resources/ckfinder/ckfinder.js"/>"></script>
+
+<script src="<c:url value="/resources/admin/vendor/jquery/jquery.min.js"/>"></script>
+
+<script src="<c:url value="/resources/admin/vendor/bootstrap/js/bootstrap.min.js"/>"></script>
+
+<script src="<c:url value="/resources/admin/vendor/metisMenu/metisMenu.min.js"/>"></script>
+
+<script src="<c:url value="/resources/admin/js/sb-admin-2.js"/>"></script>
+<script src="<c:url value="/resources/admin/js/jquery.tmpl.min.js"/>"></script>
+

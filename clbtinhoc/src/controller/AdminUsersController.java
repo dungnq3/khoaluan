@@ -27,10 +27,9 @@ public class AdminUsersController {
 	private StringUtils stringUtils;
 	
 	@RequestMapping("/admin/users")
-	public String index(Principal principal,ModelMap modelMap, @RequestParam(value="page", defaultValue="10") int page, @RequestParam(value="row_count", defaultValue="5")int row_count){
+	public String index(Principal principal,ModelMap modelMap, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
 		int offset = (page - 1)*row_count;
 		modelMap.addAttribute("listUsers",userDAO.getItems(offset,row_count));
-		
 		int total = (int)Math.ceil((float)userDAO.countItems()/row_count);
 		
 		modelMap.addAttribute("total", total);
@@ -68,7 +67,7 @@ public class AdminUsersController {
 	@RequestMapping("/admin/users/edit/{id}")
 	public String edit(Principal principal,ModelMap modelMap,@PathVariable("id")int id){
 		User user = userDAO.getItem(id);
-		if(userDAO.getItem(principal.getName()).getRole().equals("VICE") && user.getRole().equals("ADMIN")){
+		if(user.getRole().equals("ADMIN")){
 			return "redirect:/admin/users?msg=access-denied";
 		}
 		modelMap.addAttribute("objUser",user);
@@ -104,5 +103,14 @@ public class AdminUsersController {
 		}
 		return "redirect:/admin/users";
 	}
-	
+	@RequestMapping(value="/admin/users/search")
+	public String search(Principal principal,ModelMap modelMap,@RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname,@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
+		int offset = (page - 1)*row_count;
+		modelMap.addAttribute("listUsers",userDAO.search(firstname, lastname,offset,row_count));
+		int total = (int)Math.ceil((float)userDAO.countSearchItems(firstname, lastname)/row_count);
+		
+		modelMap.addAttribute("total", total);
+		modelMap.addAttribute("user", userDAO.getItem(principal.getName()));
+		return "admin.users.search";
+	}
 }

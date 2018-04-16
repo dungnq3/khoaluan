@@ -18,12 +18,12 @@ public class UsersDAO {
 	private StringUtils stringUtils;
 
 	public int addItem(User objUser) {
-		String sql = "INSERT INTO users(firstname,lastname,username,email,password,klass,phone,role,created_at)"
+		String sql = "INSERT INTO users(firstname,lastname,username,email,password,klass,phone,id_role,created_at)"
 				+ " VALUES(?,?,?,?,?,?,?,?,?)";
 		int result = jdbcTemplate.update(sql,
 				new Object[] { objUser.getFirstname(), objUser.getLastname(), objUser.getUsername(), objUser.getEmail(),
 						stringUtils.md5(objUser.getPassword()), objUser.getKlass(),
-						objUser.getPhone(), objUser.getRole(), objUser.getCreated_at() });
+						objUser.getPhone(), objUser.getId_role(), objUser.getCreated_at() });
 		return result;
 	}
 
@@ -33,7 +33,7 @@ public class UsersDAO {
 	}
 
 	public List<User> getItems(int offset, int row_count) {
-		String sql = "SELECT * FROM users ORDER BY id LIMIT ?,?";
+		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id ORDER BY users.id LIMIT ?,?";
 		return jdbcTemplate.query(sql, new Object[] { offset, row_count }, new BeanPropertyRowMapper<User>(User.class));
 	}
 
@@ -41,9 +41,14 @@ public class UsersDAO {
 		String sql = " SELECT COUNT(id) FROM users";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
-
+	
+	public int countSearchItems(String firstname, String lastname) {
+		String sql = " SELECT COUNT(id) FROM users WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY))";
+		return jdbcTemplate.queryForObject(sql,new Object[]{lastname,firstname} ,Integer.class);
+	}
+	
 	public User getItem(int id) {
-		String sql = " SELECT * FROM users WHERE id = ?";
+		String sql = " SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE users.id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<User>(User.class));
 	}
 
@@ -58,11 +63,25 @@ public class UsersDAO {
 	}
 
 	public User getItem(String name) {
-		String sql = " SELECT * FROM users WHERE username = ?";
+		String sql = " SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE username = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{name},new BeanPropertyRowMapper<User>(User.class));
 	}
 	public int transferADMIN(String role, int id){
 		String sql = "UPDATE users SET role = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[]{role,id});
+	}
+	public List<User> search(String firstname, String lastname,int offset, int row_count){
+		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY)) ORDER BY users.firstname LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{lastname,firstname,offset,row_count}, new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public List<User> getItemsByRole(int id) {
+		String sql = "SELECT * FROM users WHERE id_role = ?";
+		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int toMember(int id_user, int id_role) {
+		String sql = "UPDATE users SET id_role = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id_role,id_user});
 	}
 }

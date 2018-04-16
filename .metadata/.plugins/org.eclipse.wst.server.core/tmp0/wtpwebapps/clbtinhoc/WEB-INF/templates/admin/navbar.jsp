@@ -53,7 +53,11 @@
 							href="${pageContext.request.contextPath}/admin/categories">Loại
 								tin</a></li>
 					</ul></li>
+				<li><a href="${pageContext.request.contextPath}/admin/roles"><i
+						class="fa fa-user-secret fa-fw"></i> Quản lý chức vụ</a></li>
 			</ul>
+			
+			
 		</div>
 	</div>
 </nav>

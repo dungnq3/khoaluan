@@ -6,18 +6,20 @@
 
 	<http use-expressions="true">
 		<csrf disabled="true"/>
-        <intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/users/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-                <intercept-url pattern="/admin/transfer/**" access="hasRole('ROLE_ADMIN')" />
-        <intercept-url pattern="/admin/rules" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/rules/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/activities" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/activities/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-        <intercept-url pattern="/admin/news" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-       	<intercept-url pattern="/admin/news/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-       	 <intercept-url pattern="/admin/categories" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
-       	<intercept-url pattern="/admin/categories/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE')" />
+        <intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN','ROLE_ACCESS_ADMIN')" />
+        <intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')" />
+       	<intercept-url pattern="/admin/users/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')" />
+        <intercept-url pattern="/admin/transfer/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/rules" access="hasAnyRole('ROLE_ADMIN','ROLE_RULE_MANAGER')" />
+        <intercept-url pattern="/admin/rules/**" access="hasAnyRole('ROLE_ADMIN','ROLE_RULE_MANAGER')" />
+        <intercept-url pattern="/admin/activities" access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')" />
+        <intercept-url pattern="/admin/activities/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')" />
+        <intercept-url pattern="/admin/news" access="hasAnyRole('ROLE_ADMIN','ROLE_NEWS_MANAGER')" />
+       	<intercept-url pattern="/admin/news/**" access="hasAnyRole('ROLE_ADMIN','ROLE_NEWS_MANAGER')" />
+       	<intercept-url pattern="/admin/categories" access="hasAnyRole('ROLE_ADMIN','ROLE_CAT_MANAGER')" />
+       	<intercept-url pattern="/admin/categories/**" access="hasAnyRole('ROLE_ADMIN','ROLE_CAT_MANAGER')" />
+       	<intercept-url pattern="/admin/roles" access="hasAnyRole('ROLE_ADMIN','ROLE_ROLES_MANAGER')" />
+       	<intercept-url pattern="/admin/roles/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ROLES_MANAGER')" />
         <intercept-url pattern="/**" access="permitAll()" />
  		
  		<access-denied-handler error-page="/403" />
@@ -37,11 +39,12 @@
         	invalidate-session="true" />
        	
     </http>
-    
+
     <authentication-manager>
         <authentication-provider>
            	<password-encoder hash="md5" />
-            <jdbc-user-service data-source-ref="myDataSource" users-by-username-query ="select username, password, enabled from users where username=?" authorities-by-username-query="select username, concat('ROLE_', role) role from users where username=?" />
+            <jdbc-user-service data-source-ref="myDataSource" users-by-username-query ="select username, password, enabled from users where username=?" authorities-by-username-query="SELECT username, concat('ROLE_',name) role FROM (SELECT u.* FROM users AS u JOIN roles AS r ON u.id_role = r.id) AS T12 JOIN 
+(SELECT rp.*,name FROM role_permissions AS rp JOIN permissions AS p ON rp.id_permission = p.id) AS T34 ON T12.id_role = T34.id_role WHERE username = ?" />
         </authentication-provider>
     </authentication-manager>
 

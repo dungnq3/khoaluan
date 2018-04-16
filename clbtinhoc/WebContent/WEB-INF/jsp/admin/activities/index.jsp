@@ -69,7 +69,7 @@
 								<th style="text-align: center;">Số lượng tối đa</th>
 								<th style="text-align: center;">Đã đăng ký</th>
 								<th style="text-align: center;">Trạng thái</th>
-								<th  style="text-align: center;" width="10%">Chức năng</th>
+								<th  style="text-align: center;" width="15%">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -92,6 +92,9 @@
 												<img src="<c:url value="/resources/admin/image/close-sign-up.jpg"/>"/>
 											</a>
 										</c:if>
+										<c:if test="${objActivity.status eq 2}">
+												<img src="<c:url value="/resources/admin/image/finish-activity.jpg"/>" alt="Kết thúc"/>
+										</c:if>
 									</td>
 									
 									
@@ -99,9 +102,10 @@
 										value="${pageContext.request.contextPath}/admin/activities/edit/${objActivity.id}"></c:set>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/activities/del/${objActivity.id}"></c:set>
-									<td><a href="${editUrl}"><img src="<c:url value="/resources/admin/image/icon-update.png"/>" width="20" height="20" alt="Cập nhập"/></a> | <a
+									<td style="text-align: center;" ><a href="${editUrl}"><img src="<c:url value="/resources/admin/image/icon-update.png"/>" width="20" height="20" alt="Cập nhập"/></a> | <a
 										onclick="return confirm('Xóa hoạt động này?')"
-										href="${delUrl}"><img src="<c:url value="/resources/admin/image/icon-delete.png"/>"  width="20" height="20" alt="Xóa"/></a></td>
+										href="${delUrl}"><img src="<c:url value="/resources/admin/image/icon-delete.png"/>"  width="20" height="20" alt="Xóa"/></a>
+										<c:if test="${objActivity.status ne 2}"> | <a href="javascript:void(0)" onclick="return Finish(${objActivity.id})" ><img src='<c:url value="/resources/admin/image/finish.png"/>' width="20" height="20" alt="Đóng hoạt động"/></a></c:if></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -117,6 +121,26 @@
 								data: {
 										ajId: id,
 										ajStatus: status
+										},
+								success: function(data){
+									$('.ajax'+id).html(data);
+								},
+								error: function (){
+									alert("Lỗi");
+								}
+							});
+						};
+					};					
+				</script>
+				<script type="text/javascript">
+					function Finish(id){
+						if (confirm('Đóng hoạt động?')) {
+							$.ajax({
+								url: '${pageContext.request.contextPath}/admin/activities/finish',
+								type: 'POST',
+								cache: false,
+								data: {
+										ajId: id
 										},
 								success: function(data){
 									$('.ajax'+id).html(data);

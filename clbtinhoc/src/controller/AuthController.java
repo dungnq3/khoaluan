@@ -11,8 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import dao.RolesDAO;
 import dao.UsersDAO;
 import entities.User;
 
@@ -32,7 +32,7 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value="/register", method=RequestMethod.POST)
-	public String register(@Valid @ModelAttribute("objUser") User user,@RequestParam(value="role", defaultValue="MEMBER") String role ,BindingResult bindingResult){
+	public String register(@Valid @ModelAttribute("objUser") User user,BindingResult bindingResult){
 		if(bindingResult.hasErrors()){
 			return "admin.auth.register";
 		}
@@ -41,11 +41,10 @@ public class AuthController {
 			return "redirect:/register?msg=exist";
 		}
 		
-		user.setRole(role);
+		user.setId_role(1);
 		user.setCreated_at(new Timestamp(System.currentTimeMillis()));
 		
 		if(userDAO.addItem(user) > 0){
-			System.out.println(5);
 			return "redirect:/login?msg=register-success";
 		}
 		return "redirect:/login?msg=register-fail";

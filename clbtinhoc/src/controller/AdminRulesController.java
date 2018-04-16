@@ -30,6 +30,7 @@ public class AdminRulesController {
 		if(rulesDAO.checkRuleExist()>0){
 			Rule rule = rulesDAO.getItem();
 			modelMap.addAttribute("objRule",rule);
+			System.out.println(rule.getWrite_by());
 			modelMap.addAttribute("writer", usersDAO.getItem(rule.getWrite_by()));
 		}
 		return "admin.rules.index";

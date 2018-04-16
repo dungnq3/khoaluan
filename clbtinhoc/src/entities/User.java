@@ -11,13 +11,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class User {
 	private int id;
 	
-	@NotEmpty(message="Tên bỏ trống")
+	@NotEmpty(message="Tên không được bỏ trống")
 	private String firstname;
 	
-	@NotEmpty(message="Họ bỏ trống")
+	@NotEmpty(message="Họ không được bỏ trống")
 	private String lastname;
 	
-	@NotEmpty(message="Tên tài khoản bỏ trống")
+	@NotEmpty(message="Tên tài khoản không được bỏ trống")
 	private String username;
 	
 	@NotNull
@@ -29,22 +29,27 @@ public class User {
 	@Size(min = 6, max = 16, message="Mật khẩu có ít nhất 6 ký tự và không dài quá 16 ký tự")
 	private String password;
 	
-	@NotEmpty(message="Số điện thoại bỏ trống")
+	@NotEmpty(message="Số điện thoại không được bỏ trống")
 	private String phone;
 	
-	@NotEmpty(message="Lớp bỏ trống")
 	private String klass;
-
+	
+	private int id_role;
+	
 	private String role;
 	
+	private String description;
+	
 	private Timestamp created_at;
+	
+	private int enabled;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public User(int id,String username, String firstname, String lastname, String email, String password, String phone, String klass,
-			 String role, Timestamp created_at) {
+			 int id_role, String role, String description, Timestamp created_at, int enabled) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -54,8 +59,36 @@ public class User {
 		this.password = password;
 		this.phone = phone;
 		this.klass = klass;
+		this.id_role = id_role;
 		this.role = role;
+		this.description = description;
 		this.created_at = created_at;
+		this.enabled = enabled;
+	}
+	
+	
+	public int getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getId_role() {
+		return id_role;
+	}
+
+	public void setId_role(int id_role) {
+		this.id_role = id_role;
 	}
 
 	public int getId() {

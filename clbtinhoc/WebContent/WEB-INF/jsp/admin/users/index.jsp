@@ -61,73 +61,67 @@
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				Tài khoản <a style="float: right"
+				<form class="search-form"
+					action="${pageContext.request.contextPath}/admin/users/search">
+					<input class="lastname" type="text" name="lastname"
+						placeholder="Họ"> <input class="firstname" type="text"
+						name="firstname" placeholder="Tên"> <input type="submit"
+						value="Tìm kiếm">
+				</form>
+				<a style="float: right"
 					href="${pageContext.request.contextPath}/admin/users/add">Thêm
 					tài khoản</a>
 			</div>
+
 			<div class="panel-body">
 				<div class="table-responsive">
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th style="text-align: center;">STT</th>
 								<th>Tài khoản</th>
 								<th>Họ và tên</th>
 								<th>Chức vụ</th>
 								<th>Email</th>
 								<th>Số điện thoại</th>
-								<th>Chức năng</th>
+								<th style="text-align: center;">Chức năng</th>
 							</tr>
 						</thead>
-						<tbody>
-							<c:forEach items="${listUsers}" var="objUser">
+						<tbody id="ajax-tbody-results">
+							<c:forEach items="${listUsers}" var="objUser" varStatus="loop">
 								<tr>
-									<td>${objUser.id}</td>
+									<td style="text-align: center;">${loop.index + 1}</td>
 									<td>${objUser.username}</td>
-									<td>${objUser.lastname} ${objUser.firstname}</td>
-									<c:choose>
-										<c:when test="${objUser.role eq 'ADMIN'}">
-											<td>Chủ nhiệm</td>
-										</c:when>
-										<c:when test="${objUser.role eq 'VICE'}">
-											<td>Phó chủ nhiệm</td>
-										</c:when>
-										<c:when test="${objUser.role eq 'TREASURER'}">
-											<td>Thủ quỹ</td>
-										</c:when>
-										<c:when test="${objUser.role eq 'ADVISER'}">
-											<td>Ban cố vấn</td>
-										</c:when>
-										<c:when test="${objUser.role eq 'COMMISIONER'}">
-											<td>Ủy viên</td>
-										</c:when>
-										<c:otherwise>
-											<td>Thành viên</td>
-										</c:otherwise>
-									</c:choose>
+									<td>${objUser.lastname}${objUser.firstname}</td>
+									<td>${objUser.description}</td>
 									<td>${objUser.email}</td>
 									<td>${objUser.phone}</td>
 									<c:set var="editUrl"
 										value="${pageContext.request.contextPath}/admin/users/edit/${objUser.id}"></c:set>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/users/del/${objUser.id}"></c:set>
-									<td>
-										<a href="${editUrl}">
-											<img src="<c:url value="/resources/admin/image/icon-update.png"/>" alt="Cập nhập" width="20" height="20" />
-										</a>
-										<c:if test="${objUser.role ne 'ADMIN'}">
-										| <a onclick="return confirm('Xóa tài khoản này?')" href="${delUrl}">
-										<img src="<c:url value="/resources/admin/image/icon-delete.png"/>" alt="Xóa" width="20" height="20" />
-										</a>
-										
-										<c:if
-											test="${user.role eq 'ADMIN'}"> | <a
-												onclick="return confirm('Chuyển quyền chủ nhiệm câu lạc bộ?')"
-												href="${pageContext.request.contextPath}/admin/transfer/${objUser.id}"><img
-												src="<c:url value="/resources/admin/image/transfer-icon.png"/>"
-												alt="Xóa" width="20" height="20" /></a>
-										</c:if></td>
-										</c:if> 
+									<td style="text-align: center;"><c:choose>
+											<c:when test="${objUser.role eq 'ADMIN'}">
+											</c:when>
+											<c:otherwise>
+												<a href="${editUrl}"> <img
+													src="<c:url value="/resources/admin/image/icon-update.png"/>"
+													alt="Cập nhập" width="20" height="20" />
+												</a>
+											| <a onclick="return confirm('Xóa tài khoản này?')"
+													href="${delUrl}"> <img
+													src="<c:url value="/resources/admin/image/icon-delete.png"/>"
+													alt="Xóa" width="20" height="20" />
+												</a>
+												<c:if test="${user.role eq 'ADMIN'}">
+													| <a
+														onclick="return confirm('Chuyển quyền chủ nhiệm câu lạc bộ?')"
+														href="${pageContext.request.contextPath}/admin/transfer/${objUser.id}"><img
+														src="<c:url value="/resources/admin/image/transfer-icon.png"/>"
+														alt="Xóa" width="20" height="20" /></a>
+												</c:if>
+											</c:otherwise>
+										</c:choose></td>
 								</tr>
 							</c:forEach>
 						</tbody>

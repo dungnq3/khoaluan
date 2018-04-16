@@ -70,7 +70,7 @@
 				<c:if test="${objRule ne null}">
 					${objRule.content}
 					<br>
-					Người viết: <a href="${pageContext.request.contextPath}/">${writer.lastname} ${writer.firstname}</a>
+					Người viết: <a href="#">${writer.lastname} ${writer.firstname}</a>
 					<br>
 					<div style="float:right">
 						<a href="${pageContext.request.contextPath}/admin/rules/edit/${objRule.id}"><img src="<c:url value="/resources/admin/image/icon-update.png"/>" alt="Xóa" width="20" height="20" /></a>

@@ -1,0 +1,61 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<http use-expressions="true">
+		<csrf disabled="true"/>
+        <intercept-url pattern="/admin" access="hasAnyRole('ROLE_ADMIN','ROLE_ACCESS_ADMIN')" />
+        <intercept-url pattern="/admin/users" access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')" />
+        <intercept-url pattern="/admin/users/search" access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')" />
+        <intercept-url pattern="/admin/users/add" access="hasAnyRole('ROLE_ADMIN','ROLE_ADD_USER')" />
+        <intercept-url pattern="/admin/edit/**" access="hasAnyRole('ROLE_ADMIN','ROLE_EDIT_USER')" />
+        <intercept-url pattern="/admin/del/**" access="hasAnyRole('ROLE_ADMIN','ROLE_DEL_USER')" />
+        <intercept-url pattern="/admin/transfer/**" access="hasRole('ROLE_ADMIN')" />
+        <intercept-url pattern="/admin/rules" access="hasAnyRole('ROLE_ADMIN','RULE_MANAGER')" />
+        <intercept-url pattern="/admin/rules/add" access="hasAnyRole('ROLE_ADMIN','ROLE_ADD_RULE')" />
+        <intercept-url pattern="/admin/rules/edit/**" access="hasAnyRole('ROLE_ADMIN','ROLE_EDIT_RULE')" />
+        <intercept-url pattern="/admin/rules/del/**" access="hasAnyRole('ROLE_ADMIN','ROLE_DEL_RULE')" />
+        <intercept-url pattern="/admin/activities" access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')" />
+        <intercept-url pattern="/admin/activities/add" access="hasAnyRole('ROLE_ADMIN','ROLE_ADD_ACTIVITY')" />
+        <intercept-url pattern="/admin/activities/edit/**" access="hasAnyRole('ROLE_ADMIN','ROLE_EDIT_ACTIVITY')" />
+        <intercept-url pattern="/admin/activities/del/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+        <intercept-url pattern="/admin/activities/search/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')" />
+        <intercept-url pattern="/admin/activities/**" access="hasAnyRole('ROLE_ADMIN','ROLE_ATTENDANCE')" />
+        <intercept-url pattern="/admin/news" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+       	<intercept-url pattern="/admin/news/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+       	<intercept-url pattern="/admin/categories" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+       	<intercept-url pattern="/admin/categories/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+       	<intercept-url pattern="/admin/roles" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+       	<intercept-url pattern="/admin/roles/**" access="hasAnyRole('ROLE_ADMIN','ROLE_VICE_CHAIRMAN')" />
+        <intercept-url pattern="/**" access="permitAll()" />
+ 		
+ 		<access-denied-handler error-page="/403" />
+ 		
+        <form-login
+        	login-page="/login" 
+        	login-processing-url="/login" 
+        	default-target-url="/" 
+        	always-use-default-target="false" 
+        	authentication-failure-url="/login?error=true" 
+        	username-parameter="username" 
+        	password-parameter="password" />
+            
+        <logout logout-url="/logout" 
+        	logout-success-url="/login"  
+        	delete-cookies="JSESSIONID" 
+        	invalidate-session="true" />
+       	
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+           	<password-encoder hash="md5" />
+            <jdbc-user-service data-source-ref="myDataSource" users-by-username-query ="select username, password, enabled from users where username=?" authorities-by-username-query="SELECT username, concat('ROLE_',name) role FROM (SELECT u.* FROM users AS u JOIN roles AS r ON u.id_role = r.id) AS T12 JOIN 
+(SELECT rp.*,name FROM role_permissions AS rp JOIN permissions AS p ON rp.id_permission = p.id) AS T34 ON T12.id_role = T34.id_role WHERE username = 
+?" />
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>

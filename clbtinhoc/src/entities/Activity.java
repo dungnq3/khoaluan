@@ -37,6 +37,7 @@ public class Activity {
 		this.joined = joined;
 		this.status = status;
 	}
+	
 	public int getId() {
 		return id;
 	}

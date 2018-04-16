@@ -21,7 +21,7 @@ public class ActivitiesDAO {
 		int result = jdbcTemplate.update(sql,
 				new Object[] { objActivity.getTitle(), objActivity.getContent(), objActivity.getStart_at(), objActivity.getEnd_at(),
 						 objActivity.getFee(), objActivity.getLimited(),
-						objActivity.getStatus() });
+						objActivity.getStatus()});
 		return result;
 	}
 
@@ -63,5 +63,10 @@ public class ActivitiesDAO {
 	public int setStatus(int id, int status) {
 		String sql = " UPDATE activities SET status = ? WHERE id = ? ";
 		return jdbcTemplate.update(sql, new Object[]{status,id});
+	}
+
+	public int finish(int id) {
+		String sql = "UPDATE activities SET status = 2 WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[]{id});
 	}
 }
