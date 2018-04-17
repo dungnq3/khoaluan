@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dao.RolesDAO;
 import dao.UsersDAO;
 import entities.User;
 import utils.StringUtils;
@@ -23,6 +24,8 @@ import utils.StringUtils;
 public class AdminUsersController {
 	@Autowired
 	private UsersDAO userDAO;
+	@Autowired
+	private RolesDAO rolesDAO;
 	@Autowired
 	private StringUtils stringUtils;
 	
@@ -38,7 +41,8 @@ public class AdminUsersController {
 	}
 	
 	@RequestMapping("/admin/users/add")
-	public String add(){
+	public String add(ModelMap modelMap){
+		modelMap.addAttribute("listRoles",rolesDAO.getItems());
 		return "admin.users.add";
 	}
 	
@@ -67,14 +71,15 @@ public class AdminUsersController {
 	@RequestMapping("/admin/users/edit/{id}")
 	public String edit(Principal principal,ModelMap modelMap,@PathVariable("id")int id){
 		User user = userDAO.getItem(id);
-		if(user.getRole().equals("ADMIN")){
+		modelMap.addAttribute("listRoles",rolesDAO.getItems());
+		if(user.getRole().equals("Chủ nhiệm")){
 			return "redirect:/admin/users?msg=access-denied";
 		}
 		modelMap.addAttribute("objUser",user);
 		return "admin.users.edit";
 	}
 	@RequestMapping(value="/admin/users/edit/{id}",method=RequestMethod.POST)
-	public String edit(@PathVariable("id")int id, @RequestParam("password") String password, @RequestParam("role") String role){
+	public String edit(@PathVariable("id")int id, @RequestParam("password") String password, @RequestParam("id_role") int id_role){
 		if((password.length()>=1 && password.length()<6) || password.length()>16){
 			return "redirect:/admin/users/edit/"+id+"/?msg=password-error";
 		} else if(password.equals("")){
@@ -82,13 +87,17 @@ public class AdminUsersController {
 		} else {
 			password = stringUtils.md5(password);
 		}
-		if(userDAO.editItem(id,role,password)>0){
+		if(userDAO.editItem(id,id_role,password)>0){
 			return "redirect:/admin/users?msg=edit-success";
 		}
 		return "redirect:/admin/users?msg=edit-error";
 	}
 	@RequestMapping("/admin/users/del/{id}")
-	public String del(@PathVariable("id")int id){
+	public String del(Principal principal,@PathVariable("id")int id){
+		User prin = userDAO.getItem(principal.getName());
+		if(prin.getId() == id){
+			return "redirect:/admin/users?msg=del-error";
+		}
 		if(userDAO.delItem(id)>0){
 			return "redirect:/admin/users?msg=del-success";
 		}
@@ -97,8 +106,8 @@ public class AdminUsersController {
 	@RequestMapping("/admin/transfer/{id}")
 	public String transfer(Principal principal,@PathVariable("id") int id){
 		User user = userDAO.getItem(principal.getName());
-		if(userDAO.transferADMIN("ADMIN", id)>0){
-			userDAO.transferADMIN("MEMBER", user.getId());
+		if(userDAO.transferADMIN(user.getId_role(), id)>0){
+			userDAO.transferADMIN(1, user.getId());
 			return "redirect:/logout";
 		}
 		return "redirect:/admin/users";

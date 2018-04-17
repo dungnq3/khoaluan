@@ -7,6 +7,13 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Thêm hoạt động</h1>
+		<c:if test="${param['msg'] eq 'time-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Ngày kết thúc đăng ký phải lớn hơn ngày đăng ký
+			</div>
+		</c:if>
 	</div>
 	<div style="color: red;padding: 20px;">
 		<c:if test="${objActivity ne null}">

@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="&lt;/form:errors&gt;" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&lt;/form:errors&gt;&lt;/p&gt;"/>
+			<item value="&lt;p&gt;&lt;form:errors"/>
+			<item value="system"/>
+			<item value="System"/>
 			<item value=",description"/>
 			<item value="ROLE_CHAIRMAN"/>
 			<item value="&apos;ROLE_VICE&apos;"/>
 			<item value="ROLE_ADMIN"/>
-			<item value="users.*,role"/>
-			<item value="Thêm"/>
-			<item value="ISO-8859-1"/>
-			<item value="s&gt;&lt;/li&gt;"/>
 		</list>
 		<list key="replacehistory">
+			<item value="&lt;/form:errors&gt;"/>
+			<item value="&lt;form:errors"/>
 			<item value=""/>
 			<item value="ROLE_ADMIN"/>
 			<item value="&apos;ROLE_VICE_CHAIRMAN&apos;"/>
 			<item value="ROLE_CHAIRMAN"/>
 			<item value="users.*,role,description"/>
 			<item value="Cập nhập"/>
-			<item value="UTF-8"/>
-			<item value="s&gt;&lt;/p&gt;"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

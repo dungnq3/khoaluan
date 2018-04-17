@@ -7,6 +7,34 @@
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Quản lý quyền truy cập</h1>
+		<c:if test="${param['msg'] eq 'add-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-success'}">
+			<div class="alert alert-success alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'add-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Thêm không thành công
+			</div>
+		</c:if>
+		<c:if test="${param['msg'] eq 'del-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Xóa không thành công
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="row">
@@ -23,7 +51,8 @@
 							<tr>
 								<th style="text-align: center;">STT</th>
 								<th>Quyền truy cập</th>
-								<th>Chức năng</th>
+								<th>Mô tả</th>
+								<th style="text-align: center;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -32,11 +61,12 @@
 								<tr>
 									<td style="text-align: center;">${loop.index + 1}</td>
 									<td>${objPermis.name}</td>
+									<td>${objPermis.description}</td>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/roles/${id}/permissions/del/${objPermis.id}"></c:set>
-									<td><c:if
+									<td style="text-align: center;"><c:if
 											test="${objRole.role ne 'Chủ nhiệm' && objRole.role ne 'Thành viên'}">
-											<a onclick="return confirm('Xóa chức vụ này?')"
+											<a onclick="return confirm('Xóa quyền truy cập này?')"
 												href="${delUrl}"><img
 												src="<c:url value="/resources/admin/image/icon-delete.png"/>"
 												alt="Xóa" width="20" height="20" /></a>

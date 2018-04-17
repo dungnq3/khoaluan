@@ -18,13 +18,13 @@
 		<div style="color: red;padding: 20px;">
 		<c:if test="${objUser ne null}">
 			<ul>
-				<p><form:errors path="objUser.firstname"></form:errors></p>
-				<p><form:errors path="objUser.lastname"></form:errors></p>
-				<p><form:errors path="objUser.username"></form:errors></p>
-				<p><form:errors path="objUser.password"></form:errors></p>
-				<p><form:errors path="objUser.email"></form:errors></p>
-				<p><form:errors path="objUser.phone"></form:errors></p>
-				<p><form:errors path="objUser.klass"></form:errors></p>
+				<form:errors path="objUser.firstname" element="p"></form:errors>
+				<form:errors path="objUser.lastname" element="p"></form:errors>
+				<form:errors path="objUser.username" element="p"></form:errors>
+				<form:errors path="objUser.password" element="p"></form:errors>
+				<form:errors path="objUser.email" element="p"></form:errors>
+				<form:errors path="objUser.phone" element="p"></form:errors>
+				<form:errors path="objUser.klass" element="p"></form:errors>
 			</ul>
 		</c:if>
 	</div>
@@ -55,17 +55,13 @@
 									<p class="help-block">Ví dụ: nguyenquangdung5560@gmail.com</p>
 								</div>
 								<div class="form-group">
-									<label>Chức vụ</label> <select class="form-control"
-										name="role">
-										<sec:authorize access="hasRole('ROLE_ADMIN')">
-											<option value="VICE">Phó nhiệm</option>
-										</sec:authorize>
-										<sec:authorize access="hasAnyRole('ROLE_ADMIN,ROLE_VICE')">
-											<option value="TREASURER">Thủ quỹ</option>
-										</sec:authorize>
-										<option selected="selected" value="MEMBER">Thành viên</option>
-										<option value="ADVISER">Cố vấn</option>
-										<option value="COMMISSIONER">Ủy viên</option>
+									<label>Chức vụ</label> 
+									<select class="form-control" name="id_role">
+										<c:forEach items="${listRoles}" var="objRole">
+											<c:if test="${objRole.role ne 'Chủ nhiệm'}">
+												<option value="${objRole.id}">${objRole.role}</option>
+											</c:if>
+										</c:forEach>
 									</select>
 									<p class="help-block">Ví dụ: Thành viên</p>
 								</div>

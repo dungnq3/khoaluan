@@ -50,5 +50,9 @@ public class RolesDAO {
 		String sql = "INSERT INTO role_permissions(id_role,id_permission) VALUES(?,?)";
 		return jdbcTemplate.update(sql,new Object[]{id,i});
 	}
+	public int delPermission(int id,int i){
+		String sql = "DELETE FROM role_permissions WHERE id_role = ? AND id_permission = ?";
+		return jdbcTemplate.update(sql,new Object[]{id,i});
+	}
 	
 }

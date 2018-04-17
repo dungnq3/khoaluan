@@ -87,13 +87,13 @@
 								<th style="text-align: center;">Chức năng</th>
 							</tr>
 						</thead>
-						<tbody id="ajax-tbody-results">
+						<tbody>
 							<c:forEach items="${listUsers}" var="objUser" varStatus="loop">
 								<tr>
 									<td style="text-align: center;">${loop.index + 1}</td>
 									<td>${objUser.username}</td>
-									<td>${objUser.lastname}${objUser.firstname}</td>
-									<td>${objUser.description}</td>
+									<td>${objUser.lastname} ${objUser.firstname}</td>
+									<td>${objUser.role}</td>
 									<td>${objUser.email}</td>
 									<td>${objUser.phone}</td>
 									<c:set var="editUrl"
@@ -101,19 +101,21 @@
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/users/del/${objUser.id}"></c:set>
 									<td style="text-align: center;"><c:choose>
-											<c:when test="${objUser.role eq 'ADMIN'}">
+											<c:when test="${objUser.role eq 'Chủ nhiệm'}">
 											</c:when>
 											<c:otherwise>
 												<a href="${editUrl}"> <img
 													src="<c:url value="/resources/admin/image/icon-update.png"/>"
 													alt="Cập nhập" width="20" height="20" />
 												</a>
+											<c:if test="${objUser.id ne user.id}">
 											| <a onclick="return confirm('Xóa tài khoản này?')"
 													href="${delUrl}"> <img
 													src="<c:url value="/resources/admin/image/icon-delete.png"/>"
 													alt="Xóa" width="20" height="20" />
 												</a>
-												<c:if test="${user.role eq 'ADMIN'}">
+											</c:if>	
+												<c:if test="${user.role eq 'Chủ nhiệm'}">
 													| <a
 														onclick="return confirm('Chuyển quyền chủ nhiệm câu lạc bộ?')"
 														href="${pageContext.request.contextPath}/admin/transfer/${objUser.id}"><img

@@ -15,7 +15,7 @@ public class PermissionDAO {
 	private JdbcTemplate jdbcTemplate;
 	
 	public List<Permissions> getItems(int id){
-		String sql = "SELECT * FROM permissions LEFT JOIN role_permissions ON permissions.id = role_permissions.id_permission WHERE id_role = ?";
+		String sql = "SELECT permissions.* FROM permissions LEFT JOIN role_permissions ON permissions.id = role_permissions.id_permission WHERE id_role = ?";
 		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<Permissions>(Permissions.class));
 	}
 	public List<Permissions> getItems(){
@@ -27,7 +27,7 @@ public class PermissionDAO {
 		return jdbcTemplate.queryForObject(sql,new Object[]{name},new BeanPropertyRowMapper<Permissions>(Permissions.class));
 	}
 	public List<Permissions> getOtherItems(int id) {
-		String sql = "SELECT * FROM permissions WHERE id NOT IN(SELECT id_permission FROM role_permissions WHERE id_role = ?)";
+		String sql = "SELECT * FROM permissions WHERE id NOT IN(SELECT id_permission FROM role_permissions WHERE id_role = ?) AND name NOT IN('MEMBER','ADMIN')";
 		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<Permissions>(Permissions.class));
 	}
 }

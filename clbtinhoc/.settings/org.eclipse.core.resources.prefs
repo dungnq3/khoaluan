@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//src/controller/AdminRolesController.java=UTF-8
 encoding//src/controller/AdminUsersController.java=UTF-8
 encoding//src/entities/Activity.java=UTF-8
 encoding//src/entities/Category.java=UTF-8

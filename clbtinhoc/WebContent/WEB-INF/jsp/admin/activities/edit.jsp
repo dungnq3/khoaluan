@@ -2,9 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
 <div class="row">
 	<div class="col-lg-12">
 		<h1 class="page-header">Cập nhập hoạt động</h1>
+		<c:if test="${param['msg'] eq 'time-error'}">
+			<div class="alert alert-danger alert-dismissable">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-hidden="true">&times;</button>
+				Ngày kết thúc đăng ký phải lớn hơn ngày đăng ký
+			</div>
+		</c:if>
 	</div>
 </div>
 <div class="row">

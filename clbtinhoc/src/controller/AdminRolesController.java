@@ -64,8 +64,7 @@ public class AdminRolesController {
 	@RequestMapping("/admin/roles/edit/{id}")
 	public String edit(@PathVariable("id") int id, ModelMap modelMap) {
 		Roles objRole = rolesDAO.getItem(id);
-		if (objRole.getRole().equals("CHAIRMAN") || objRole.getRole().equals("MEMBER")
-				|| objRole.getRole().equals("VICE_CHAIRMAN")) {
+		if (objRole.getRole().equals("Chủ nhiệm") || objRole.getRole().equals("Thành viên")) {
 			return "redirect:/admin/roles?msg=access-denied";
 		}
 		modelMap.addAttribute("objRole", objRole);
@@ -91,6 +90,10 @@ public class AdminRolesController {
 
 	@RequestMapping("/admin/roles/del/{id}")
 	public String del(@PathVariable("id") int id) {
+		Roles objRole = rolesDAO.getItem(id);
+		if (objRole.getRole().equals("Chủ nhiệm") || objRole.getRole().equals("Thành viên")) {
+			return "redirect:/admin/roles?msg=access-denied";
+		}
 		List<User> listUsers = usersDAO.getItemsByRole(id);
 		if (rolesDAO.delItem(id) > 0) {
 			for (User objUser : listUsers) {
@@ -115,14 +118,32 @@ public class AdminRolesController {
 	}
 	
 	@RequestMapping(value="/admin/roles/{id}/permissions/add", method=RequestMethod.POST)
-	public String addPer(@PathVariable("id") int id ) {
-		return "admin.permission.add";
+	public String addPer(@RequestParam(value="id_permission",required=false)String[] id_pers ,@PathVariable("id") int id) {
+		if(id_pers != null){
+			for(int i = 0;i<id_pers.length;i++){
+				try{
+					rolesDAO.addPermission(id, Integer.parseInt(id_pers[i]));
+				}
+				catch (NumberFormatException e) {
+					e.getMessage();
+				}
+			}
+		} else {
+			return "redirect:/admin/roles/"+id+"/permissions?msg=add-error";
+		}
+		
+		return "redirect:/admin/roles/"+id+"/permissions?msg=add-success";
 	}
 	
-	@RequestMapping("/admin/roles/{id}/permissions/del")
-	public String delPer(ModelMap modelMap, @PathVariable("id") int id) {
-		modelMap.addAttribute("objRole", rolesDAO.getItem(id));
-		modelMap.addAttribute("listPermissions", permissionDAO.getItems(id));
-		return "admin.roles.permission";
+	@RequestMapping("/admin/roles/{id}/permissions/del/{id_per}")
+	public String delPer(@PathVariable("id") int id,@PathVariable("id_per")int id_per) {
+		Roles objRole = rolesDAO.getItem(id);
+		if (objRole.getRole().equals("Chủ nhiệm") || objRole.getRole().equals("Thành viên")) {
+			return "redirect:/admin/roles?msg=access-denied";
+		}
+		if(rolesDAO.delPermission(id, id_per)>0){
+			return "redirect:/admin/roles/"+id+"/permissions?msg=del-success";
+		}
+		return "redirect:/admin/roles/"+id+"/permissions?msg=del-error";
 	}
 }

@@ -38,8 +38,6 @@ public class User {
 	
 	private String role;
 	
-	private String description;
-	
 	private Timestamp created_at;
 	
 	private int enabled;
@@ -49,7 +47,7 @@ public class User {
 	}
 
 	public User(int id,String username, String firstname, String lastname, String email, String password, String phone, String klass,
-			 int id_role, String role, String description, Timestamp created_at, int enabled) {
+			 int id_role, String role, Timestamp created_at, int enabled) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -61,7 +59,6 @@ public class User {
 		this.klass = klass;
 		this.id_role = id_role;
 		this.role = role;
-		this.description = description;
 		this.created_at = created_at;
 		this.enabled = enabled;
 	}
@@ -73,14 +70,6 @@ public class User {
 
 	public void setEnabled(int enabled) {
 		this.enabled = enabled;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 
 	public int getId_role() {

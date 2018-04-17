@@ -57,8 +57,8 @@ public class UsersDAO {
 		return jdbcTemplate.update(sql, new Object[]{id});
 	}
 
-	public int editItem(int id, String role, String password) {
-		String sql = " UPDATE users SET role = ?, password = ? WHERE id = ?";
+	public int editItem(int id, int role, String password) {
+		String sql = " UPDATE users SET id_role = ?, password = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[]{role,password,id});
 	}
 
@@ -66,8 +66,8 @@ public class UsersDAO {
 		String sql = " SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE username = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{name},new BeanPropertyRowMapper<User>(User.class));
 	}
-	public int transferADMIN(String role, int id){
-		String sql = "UPDATE users SET role = ? WHERE id = ?";
+	public int transferADMIN(int role, int id){
+		String sql = "UPDATE users SET id_role = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[]{role,id});
 	}
 	public List<User> search(String firstname, String lastname,int offset, int row_count){

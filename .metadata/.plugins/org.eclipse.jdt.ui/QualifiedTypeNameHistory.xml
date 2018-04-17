@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.validation.constraints.Pattern"/>
-<fullyQualifiedTypeName name="utils.Defines"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ResponseBody"/>
 <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
 <fullyQualifiedTypeName name="dao.RulesDAO"/>
@@ -15,12 +13,10 @@
 <fullyQualifiedTypeName name="org.apache.jasper.compiler.Node.JspOutput"/>
 <fullyQualifiedTypeName name="org.jsoup.Jsoup"/>
 <fullyQualifiedTypeName name="entities.Activity"/>
-<fullyQualifiedTypeName name="java.security.Principal"/>
 <fullyQualifiedTypeName name="javax.validation.constraints.DecimalMin"/>
 <fullyQualifiedTypeName name="javax.validation.constraints.Min"/>
 <fullyQualifiedTypeName name="javax.validation.constraints.NotNull"/>
 <fullyQualifiedTypeName name="org.jsoup.helper.StringUtil"/>
-<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
 <fullyQualifiedTypeName name="java.time.LocalDate"/>
 <fullyQualifiedTypeName name="org.springframework.format.annotation.DateTimeFormat"/>
 <fullyQualifiedTypeName name="java.time.format.DateTimeFormatter"/>
@@ -30,10 +26,8 @@
 <fullyQualifiedTypeName name="entities.Category"/>
 <fullyQualifiedTypeName name="utils.StringUtils"/>
 <fullyQualifiedTypeName name="java.lang.Object"/>
-<fullyQualifiedTypeName name="java.util.Date"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
 <fullyQualifiedTypeName name="org.hibernate.validator.internal.util.privilegedactions.GetResources"/>
-<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
 <fullyQualifiedTypeName name="entities.Attendance"/>
 <fullyQualifiedTypeName name="entities.Activity_Users"/>
 <fullyQualifiedTypeName name="entities.Attendance_Detail"/>
@@ -41,7 +35,6 @@
 <fullyQualifiedTypeName name="org.springframework.stereotype.Repository"/>
 <fullyQualifiedTypeName name="entities.Contact"/>
 <fullyQualifiedTypeName name="dao.ContactsDAO"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
 <fullyQualifiedTypeName name="org.springframework.ui.ModelMap"/>
 <fullyQualifiedTypeName name="entities.Roles"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.ModelAttribute"/>
@@ -52,12 +45,19 @@
 <fullyQualifiedTypeName name="org.hibernate.validator.constraints.NotEmpty"/>
 <fullyQualifiedTypeName name="org.hibernate.validator.constraints.NotBlank"/>
 <fullyQualifiedTypeName name="javax.validation.constraints.Size"/>
-<fullyQualifiedTypeName name="dao.RolesDAO"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
-<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
 <fullyQualifiedTypeName name="dao.PermissionDAO"/>
 <fullyQualifiedTypeName name="org.springframework.jdbc.core.BeanPropertyRowMapper"/>
 <fullyQualifiedTypeName name="entities.Permissions"/>
 <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMethod"/>
+<fullyQualifiedTypeName name="javax.servlet.http.HttpServletRequest"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+<fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
+<fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+<fullyQualifiedTypeName name="dao.RolesDAO"/>
+<fullyQualifiedTypeName name="java.security.Principal"/>
+<fullyQualifiedTypeName name="javax.validation.constraints.Null"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

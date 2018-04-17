@@ -1,7 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -58,7 +61,18 @@ public class AdminActivitiesController {
 			return "admin.activities.add";
 		}
 		activity.setTitle(stringUtils.html2text(activity.getTitle()));
-
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date start = sdf.parse(activity.getStart_at());
+			Date end = sdf.parse(activity.getEnd_at());
+			if(end.before(start)){
+				return "redirect:/admin/activities/add?msg=time-error";
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (activitiesDAO.addItem(activity) > 0) {
 			return "redirect:/admin/activities?msg=add-success";
 		}
@@ -77,6 +91,17 @@ public class AdminActivitiesController {
 			BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "admin.activities.edit";
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date start = sdf.parse(activity.getStart_at());
+			Date end = sdf.parse(activity.getEnd_at());
+			if(end.before(start)){
+				return "redirect:/admin/activities/edit/"+id+"?msg=time-error";
+			}
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		activity.setId(id);
 		activity.setTitle(stringUtils.html2text(activity.getTitle()));

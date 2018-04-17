@@ -435,3 +435,11 @@ table.dataTable thead .sorting:after {
 .search-form{
 	display: inline-block;
 }
+
+.checkbox-container {}
+ .checkbox-container label { display: block; }
+ .checkbox-container ul {}
+ .checkbox-container ul ul { list-style: none;  display: none;  }
+ .checkbox-container ul { list-style: none;  display: block; }
+ 
+.checkbox-container input[type="checkbox"] {}

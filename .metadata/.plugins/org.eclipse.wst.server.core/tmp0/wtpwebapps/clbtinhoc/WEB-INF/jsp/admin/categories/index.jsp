@@ -62,15 +62,15 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th style="text-align: center;">STT</th>
 								<th>Tên danh mục</th>
 								<th>Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listCat}" var="objCat">
+							<c:forEach items="${listCat}" var="objCat" varStatus="loop">
 								<tr>
-									<td>${objCat.id}</td>
+									<td style="text-align: center;">${loop.index + 1}</td>
 									<td>${objCat.name_cat}</td>
 									<c:set var="editUrl"
 										value="${pageContext.request.contextPath}/admin/categories/edit/${objCat.id}"></c:set>
