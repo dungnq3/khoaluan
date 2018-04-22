@@ -1,0 +1,37 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dao.CategoriesDAO;
+import dao.NewsDAO;
+import entities.Category;
+import entities.News;
+
+@Controller
+public class PublicHomeController {
+	@Autowired
+	private CategoriesDAO catDAO;
+	@Autowired
+	private NewsDAO newsDAO;
+	
+	@RequestMapping("/")
+	public String index(ModelMap modelMap){
+		List<Category> listCat = catDAO.getItems();
+		modelMap.addAttribute("listCat",listCat);
+		List<News> listNews = new ArrayList<>();
+		for(int i = 0;i<listCat.size();i++){
+			listNews.addAll(newsDAO.getLimitItems(listCat.get(i).getId()));
+		}
+		modelMap.addAttribute("listNews",listNews);
+		
+		
+		
+		return "public.clbtinhoc.index";
+	}
+}

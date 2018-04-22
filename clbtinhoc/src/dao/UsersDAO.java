@@ -84,4 +84,9 @@ public class UsersDAO {
 		String sql = "UPDATE users SET id_role = ? WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[]{id_role,id_user});
 	}
+	
+	public User getAdmin() {
+		String sql = " SELECT firstname,lastname,email,phone FROM users JOIN roles ON users.id_role = roles.id WHERE role = 'Chủ nhiệm'";
+		return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class));
+	}
 }

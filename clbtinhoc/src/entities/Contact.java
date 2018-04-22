@@ -1,12 +1,16 @@
 package entities;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Contact {
 	private int id;
 	private int id_user;
 	private String firstname;
 	private String lastname;
 	private String klass;
-	private String context;
+	
+	@NotBlank(message="Nội dung không được bỏ trống")
+	private String content;
 	
 	public Contact() {
 		// TODO Auto-generated constructor stub
@@ -14,14 +18,14 @@ public class Contact {
 
 	
 
-	public Contact(int id, int id_user, String firstname, String lastname, String klass, String context) {
+	public Contact(int id, int id_user, String firstname, String lastname, String klass, String content) {
 		super();
 		this.id = id;
 		this.id_user = id_user;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.klass = klass;
-		this.context = context;
+		this.content = content;
 	}
 
 
@@ -78,12 +82,12 @@ public class Contact {
 		this.id_user = id_user;
 	}
 
-	public String getContext() {
-		return context;
+	public String getContent() {
+		return content;
 	}
 
-	public void setContext(String context) {
-		this.context = context;
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	

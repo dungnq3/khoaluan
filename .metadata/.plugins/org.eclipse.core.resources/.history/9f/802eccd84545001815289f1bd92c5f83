@@ -1,0 +1,20 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dao.RulesDAO;
+
+@Controller
+public class PublicRulesController {
+	@Autowired
+	private RulesDAO rulesDAO;
+	
+	@RequestMapping("/noi-quy")
+	public String index(ModelMap modelMap){
+		modelMap.addAttribute("objRule",rulesDAO.getItem());
+		return "public.rules.index";
+	}
+}

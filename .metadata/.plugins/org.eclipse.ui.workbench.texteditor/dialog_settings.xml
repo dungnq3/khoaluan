@@ -2,25 +2,25 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="&lt;/form:errors&gt;" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="dropdown-content"/>
+			<item value="html, body{"/>
+			<item value="&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;"/>
 			<item value="&lt;/form:errors&gt;&lt;/p&gt;"/>
 			<item value="&lt;p&gt;&lt;form:errors"/>
 			<item value="system"/>
 			<item value="System"/>
 			<item value=",description"/>
-			<item value="ROLE_CHAIRMAN"/>
-			<item value="&apos;ROLE_VICE&apos;"/>
-			<item value="ROLE_ADMIN"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
 			<item value="&lt;/form:errors&gt;"/>
 			<item value="&lt;form:errors"/>
-			<item value=""/>
 			<item value="ROLE_ADMIN"/>
 			<item value="&apos;ROLE_VICE_CHAIRMAN&apos;"/>
 			<item value="ROLE_CHAIRMAN"/>

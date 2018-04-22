@@ -7,12 +7,17 @@
 <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
+				<c:if test="${param['msg'] eq 'register-success' }">
+						<div style="margin-bottom: 15px;text-align: center;">
+							<span style="color:green; margin: 0 auto;">Đăng ký thành công</span>
+						</div>
+					</c:if>
 				<form action="${pageContext.request.contextPath}/login" method="POST" class="login100-form validate-form">
 					<span class="login100-form-title p-b-26">
 						Welcome
 					</span>
 					<span class="login100-form-title p-b-48">
-						<i class="zmdi zmdi-font"></i>
+						<i class="zmdi">IT Club</i>
 					</span>
 					<c:if test="${param['error'] eq 'true' }">
 						<div style="margin-bottom: 15px">

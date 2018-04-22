@@ -65,7 +65,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th style="text-align: center;">STT</th>
 								<th>Tiêu đề</th>
 								<th>Loại tin</th>
 								<th>Ngày đăng(cập nhập)</th>
@@ -74,9 +74,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listNews}" var="objNews">
+							<c:forEach items="${listNews}" var="objNews" varStatus="loop">
 								<tr>
-									<td>${objNews.id}</td>
+									<td style="text-align: center;">${loop.index + 1}</td>
 									<td>${objNews.title}</td>
 									<td>${objNews.name_cat}</td>
 									<fmt:parseDate value="${objNews.created_at}" type="date" pattern="yyyy-MM-dd HH:mm:ss.S" var="created_at"/> 

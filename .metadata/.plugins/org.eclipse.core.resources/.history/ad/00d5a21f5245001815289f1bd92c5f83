@@ -1,0 +1,21 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dao.CategoriesDAO;
+import utils.SlugUtils;
+
+@Controller
+public class PublicCategoriesController {
+	@Autowired
+	private CategoriesDAO catDAO:
+	@Autowired
+	private SlugUtils slugUtils;
+
+	@RequestMapping("/{slug}-{id}")
+	public String index() {
+
+	}
+}

@@ -47,7 +47,7 @@
 							<span class="focus-input1001" data-placeholder="Lớp"></span>
 						</div>
 						
-						<div class="wrap-input1001 validate-input">
+						<div class="wrap-input1001 validate-input" data-validate = "Số điện thoại bỏ trống">
 							<input class="input1001" type="text" name="phone">
 							<span class="focus-input1001" data-placeholder="Số điện thoại"></span>
 						</div>

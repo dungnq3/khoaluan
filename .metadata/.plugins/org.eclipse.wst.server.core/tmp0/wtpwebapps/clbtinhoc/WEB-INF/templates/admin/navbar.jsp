@@ -50,6 +50,8 @@
 						<li><a href="${pageContext.request.contextPath}/admin/news">Tin
 								tức</a></li>
 						<li><a
+							href="${pageContext.request.contextPath}/admin/news/no-cat">Tin tức chưa có thể loại</a></li>
+						<li><a
 							href="${pageContext.request.contextPath}/admin/categories">Loại
 								tin</a></li>
 					</ul></li>

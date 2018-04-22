@@ -30,4 +30,12 @@ public class ContactsDAO {
 		String sql = "SELECT contacts.*,firstname,lastname,klass FROM contacts JOIN users ON contacts.id_user = users.id WHERE contacts.id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<Contact>(Contact.class));
 	}
+	public int addItem(Contact objContact) {
+		String sql = "INSERT INTO contacts(id_user,content) VALUES (?,?)";
+		return jdbcTemplate.update(sql, new Object[]{objContact.getId_user(),objContact.getContent()});
+	}
+	public int checkSpam(Contact objContact){
+		String sql = "SELECT COUNT(id) FROM contacts WHERE id_user = ? AND content = ?";
+		return jdbcTemplate.queryForObject(sql,new Object[]{objContact.getId_user(),objContact.getContent()},Integer.class);
+	}
 }

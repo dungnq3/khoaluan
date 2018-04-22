@@ -69,4 +69,13 @@ public class ActivitiesDAO {
 		String sql = "UPDATE activities SET status = 2 WHERE id = ?";
 		return jdbcTemplate.update(sql, new Object[]{id});
 	}
+	
+	public List<Activity> getNewItems() {
+		String sql = "SELECT * FROM activities WHERE WHERE status = 1 AND ORDER BY id DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Activity>(Activity.class));
+	}
+	public List<Activity> getEndItems(int offset, int row_count) {
+		String sql = "SELECT * FROM activities WHERE WHERE id = 0 ORDER BY id DESC";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Activity>(Activity.class));
+	}
 }

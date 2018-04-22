@@ -1,0 +1,24 @@
+package controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import dao.CategoriesDAO;
+import dao.NewsDAO;
+
+@Controller
+public class PublicHomeController {
+	@Autowired
+	private CategoriesDAO catDAO;
+	@Autowired
+	private NewsDAO newsDAO;
+	
+	@RequestMapping("/")
+	public String index(ModelMap modelMap){
+		modelMap.addAttribute("listCat",catDAO.getItems());
+		modelMap.addAttribute("listNews",newsDAO.getItems());
+		return "public.clbtinhoc.index";
+	}
+}

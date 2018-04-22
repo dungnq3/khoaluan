@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+<div class="content-grids">
+	<div class="col-md-12 content-main">
+		<c:forEach items="${listCat}" var="objCat">
+			<div class="row">
+				<h1 class="title">${objCat.name_cat}</h1>
+				<c:forEach items="${listNews}" var="objNews">
+					<c:if test="${objNews.id_cat eq objCat.id}">
+						<div class="content-grid-sec">
+							<div class="content-sec-info">
+								<h3>
+									<a href="chi-tiet.html">${objNews.title}</a>
+								</h3>
+								<c:choose>
+									<c:when test="${objNews.created_at < objNews.updated_at}">
+										<h4>Cập nhập ngày: ${objNews.updated_at} - Lượt xem:
+											${objNews.view}</h4>
+									</c:when>
+									<c:otherwise>
+										<h4>Đăng ngày: ${objNews.created_at} - Lượt xem:
+											${objNews.view}</h4>
+									</c:otherwise>
+								</c:choose>
+								<div class="overflow-hidden">${objNews.content}</div>
+								<a class="bttn" href="chi-tiet.html">Chi tiết</a>
+							</div>
+						</div>
+					</c:if>
+				</c:forEach>
+			</div>
+		</c:forEach>
+	</div>
+	<div class="clearfix"></div>
+</div>

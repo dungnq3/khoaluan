@@ -12,13 +12,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import dao.CategoriesDAO;
 import dao.UsersDAO;
 import entities.User;
+import utils.SlugUtils;
 
 @Controller
 public class AuthController {
 	@Autowired
 	private UsersDAO userDAO;
+	@Autowired
+	private CategoriesDAO catDAO;
+	@Autowired
+	private SlugUtils slugUtils;
+	@ModelAttribute
+	public void addCommon(ModelMap modelMap){
+		modelMap.addAttribute("lCat",catDAO.getItems());
+		modelMap.addAttribute("slug",slugUtils);
+	}
 	
 	@RequestMapping("/login")
 	public String index(ModelMap modelMap){

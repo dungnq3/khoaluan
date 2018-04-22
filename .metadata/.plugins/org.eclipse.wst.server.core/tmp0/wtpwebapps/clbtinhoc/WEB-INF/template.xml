@@ -66,6 +66,9 @@
    <definition name="admin.news.index" extends="admin.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/news/index.jsp" />
   </definition>
+   <definition name="admin.news.nocat" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/news/nocat.jsp" />
+  </definition>
    <definition name="admin.news.edit" extends="admin.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/news/edit.jsp" />
   </definition> 
@@ -121,13 +124,26 @@
   <definition name="public.template" template="/WEB-INF/templates/public/template.jsp">
     <put-attribute name="header" value="/WEB-INF/templates/public/header.jsp" />
     <put-attribute name="banner" value="/WEB-INF/templates/public/banner.jsp" />
-      <put-attribute name="navbar" value="/WEB-INF/templates/public/navbar.jsp" />
+    <put-attribute name="banner-links" value="/WEB-INF/templates/public/banner-links.jsp" />
     <put-attribute name="content" value="" />
     <put-attribute name="footer" value="/WEB-INF/templates/public/footer.jsp" />
   </definition>
   <definition name="public.clbtinhoc.index" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/home/index.jsp" />
   </definition>
-  
-  
+   <definition name="public.rules.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/rules/index.jsp" />
+  </definition>
+     <definition name="public.contacts.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/contacts/index.jsp" />
+  </definition>
+   <definition name="public.categories.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/categories/index.jsp" />
+  </definition>
+   <definition name="public.news.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/news/index.jsp" />
+  </definition>
+   <definition name="public.activities.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/activities/index.jsp" />
+  </definition>
 </tiles-definitions>

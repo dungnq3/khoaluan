@@ -19,6 +19,11 @@ public class NewsDAO {
 		return jdbcTemplate.query(sql, new Object[]{offset,row_count},new BeanPropertyRowMapper<News>(News.class));
 	}
 	
+	public List<News> getNullItems(int offset, int row_count){
+		String sql = "SELECT id,title,content,created_at,updated_at,view,write_by FROM news WHERE id_cat IS NULL ORDER BY id LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{offset,row_count},new BeanPropertyRowMapper<News>(News.class));
+	}
+	
 	public int addItem(News objNews){
 		String sql = "INSERT INTO news(title,content,created_at,updated_at,id_cat,write_by) VALUES(?,?,?,?,?,?)";
 		return jdbcTemplate.update(sql,new Object[]{objNews.getTitle(),objNews.getContent(),objNews.getCreated_at(),objNews.getUpdated_at(),objNews.getId_cat(),objNews.getWrite_by()});
@@ -42,5 +47,40 @@ public class NewsDAO {
 	public int countItems() {
 		String sql = "SELECT COUNT(*) FROM news";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	public int countNullItems() {
+		String sql = "SELECT COUNT(id) FROM news WHERE id_cat IS NULL";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+	public List<News> getLimitItems(int id_cat) {
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ? ORDER BY news.id DESC LIMIT 2";
+		return jdbcTemplate.query(sql,new Object[]{id_cat}, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	/*public List<News> getItems(int id_cat) {
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ?";
+		return jdbcTemplate.query(sql,new Object[]{id_cat}, new BeanPropertyRowMapper<News>(News.class));
+	}*/
+	
+	public List<News> getItems(int id_cat, int offset, int row_count){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ? ORDER BY news.id LIMIT ?,?";
+		return jdbcTemplate.query(sql,new Object[]{id_cat,offset,row_count}, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public List<News> getNewItems(){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id ORDER BY news.id DESC LIMIT 10";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public int countItems(int id_cat) {
+		String sql = "SELECT COUNT(*) FROM news WHERE id_cat = ?";
+		return jdbcTemplate.queryForObject(sql,new Object[]{id_cat} ,Integer.class);
+	}
+
+	public int setView(int id_news) {
+		String sql = "UPDATE news SET view = view + 1 WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id_news});
 	}
 }

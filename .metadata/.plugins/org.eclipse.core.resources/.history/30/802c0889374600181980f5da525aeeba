@@ -1,0 +1,53 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+		 <div class="content-grids">
+			 <div class="col-md-8 content-main">
+			 <c:forEach items="${listCat}" var="objCat">
+				<div class="row">
+				 <h1 class="title">${objCat.name_cat}</h1>
+				 	<c:forEach items="${listNews}" var="objNews">
+				 	<c:if test="${objNews.id_cat eq objCat.id}">
+					 <div class="content-grid-sec">
+						 <div class="content-sec-info">
+								 <h3><a href="${pageContext.request.contextPath}/${slug.makeSlug(objNews.name_cat)}-${objNews.id_cat}/${slug.makeSlug(objNews.title)}-${objNews.id}">${objNews.title}</a></h3>
+								 <c:choose>
+								 <c:when test="${objNews.created_at < objNews.updated_at}">
+									 <h4>Cập nhập ngày: ${objNews.updated_at} - Lượt xem: ${objNews.view}</h4>
+								 </c:when>
+								 <c:otherwise>
+								  	 <h4>Đăng ngày: ${objNews.created_at} - Lượt xem: ${objNews.view}</h4>
+								 </c:otherwise>
+								 </c:choose>
+								 <div class="overflow-hidden">${objNews.content}</div>
+								 <a class="bttn" href="${pageContext.request.contextPath}/${slug.makeSlug(objNews.name_cat)}-${objNews.id_cat}/${slug.makeSlug(objNews.title)}-${objNews.id}">Chi tiết</a>
+						 </div>
+					 </div>
+					 </c:if>
+					 </c:forEach>
+				 </div>
+				</c:forEach>
+			 </div>
+			 
+			 <div class="col-md-4 content-main-right">
+				 <div class="search">
+						 <h3>TÌM KIẾM TIN TỨC</h3>
+						<form>
+							<input type="text" value="" onfocus="this.value=''" onblur="this.value=''">
+							<input type="submit" value="">
+						</form>
+				 </div>
+				 
+				 <div class="categories">
+					 <h3>Tin tức mới nhất</h3>
+					 <ul>
+					 <c:forEach items="${newList}" var="newObj">
+					 	<li><a href="#">${newObj.title}</a></li>
+					 </c:forEach>
+					 </ul>
+				 </div>
+				 
+			 </div>
+			 <div class="clearfix"></div>
+		 </div>

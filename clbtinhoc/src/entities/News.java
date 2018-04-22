@@ -18,6 +18,36 @@ public class News {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	public News(int id, String title, String content, String created_at, String updated_at, int view, int write_by) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.view = view;
+		this.write_by = write_by;
+	}
+
+
+
+	public News(int id, String title, String content, String created_at, String updated_at, int view, int id_cat,
+			int write_by) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.view = view;
+		this.id_cat = id_cat;
+		this.write_by = write_by;
+	}
+
+
+
 	public News(int id, String title, String content, String created_at, String updated_at, int view, int id_cat, String name_cat
 			,int write_by) {
 		super();
@@ -93,12 +123,4 @@ public class News {
 	public void setWrite_by(int write_by) {
 		this.write_by = write_by;
 	}
-
-	@Override
-	public String toString() {
-		return "News [id=" + id + ", title=" + title + ", content=" + content + ", created_at=" + created_at
-				+ ", updated_at=" + updated_at + ", view=" + view + ", category=" + id_cat + ", write_by=" + write_by
-				+ "]";
-	}
-	
 }
