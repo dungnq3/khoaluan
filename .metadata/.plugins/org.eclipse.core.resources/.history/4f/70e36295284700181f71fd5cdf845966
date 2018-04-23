@@ -1,0 +1,61 @@
+package controller;
+
+import java.awt.font.GlyphJustificationInfo;
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.google.gson.Gson;
+
+import dao.ActivitiesDAO;
+import dao.CategoriesDAO;
+import dao.ContactsDAO;
+import dao.NewsDAO;
+import dao.RolesDAO;
+import dao.RulesDAO;
+import dao.UsersDAO;
+import entities.UserStatistics;
+
+@Controller
+public class AdminHomeController {
+	@Autowired
+	private ActivitiesDAO activitiesDAO;
+	@Autowired
+	private UsersDAO userDAO;
+	@Autowired
+	private CategoriesDAO catDAO;
+	@Autowired
+	private NewsDAO newsDAO;
+	@Autowired
+	private ContactsDAO contactDAO;
+	@Autowired
+	private RolesDAO roleDAO;
+	@Autowired
+	private RulesDAO ruleDAO;
+	
+	@RequestMapping("/admin")
+	public String index(ModelMap modelMap){
+		modelMap.addAttribute("totalActivities", activitiesDAO.getTotal());
+		modelMap.addAttribute("totalAccount",userDAO.getTotal());
+		modelMap.addAttribute("totalCategories",catDAO.getTotal());
+		modelMap.addAttribute("totalNews",newsDAO.getTotal());
+		modelMap.addAttribute("totalContacts",contactDAO.getTotal());
+		modelMap.addAttribute("totalRoles",roleDAO.getTotal());
+		modelMap.addAttribute("totalRules",ruleDAO.getTotal());
+		
+		
+		return "admin.home.index";
+	}
+	@RequestMapping("/admin/thong-ke")
+	public String statistic(ModelMap modelMap){
+		Calendar now = Calendar.getInstance();
+		int currentYear = now.get(Calendar.YEAR);
+		List<UserStatistics> dataPoints = userDAO.getStatistics(currentYear);
+		modelMap.addAttribute("dataPoints",dataPoints);
+		return "admin.home.statistic";
+	}
+}

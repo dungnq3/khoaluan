@@ -23,16 +23,16 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th style="text-align: center;">ID</th>
-								<th style="text-align: center;">Tên thành viên</th>
+								<th style="text-align: center;">STT</th>
+								<th>Tên thành viên</th>
 								<th style="text-align: center;">Lớp</th>
 								<th style="text-align: center;">Ngày đăng ký</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listActivityUsers}" var="objActivityUser" >
+							<c:forEach items="${listActivityUsers}" var="objActivityUser" varStatus="loop" >
 								<tr>
-									<td style="text-align: center;" >${objActivityUser.id}</td>
+									<td style="text-align: center;" >${loop.index + 1}</td>
 									<td>${objActivityUser.lastname} ${objActivityUser.firstname}</td> 
 									<td style="text-align: center;">${objActivityUser.klass}</td>
 									<td style="text-align: center;">${objActivityUser.joined_at}</td>

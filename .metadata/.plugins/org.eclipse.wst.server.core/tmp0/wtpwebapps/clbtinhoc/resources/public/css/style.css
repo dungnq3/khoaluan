@@ -1443,3 +1443,15 @@ font-size: 0.8em;
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
+.activity-content{
+	padding: 5px 5px;
+}
+.activity-content p{
+	margin-top: 5px;
+}
+.activity-content a{
+	margin-top: 5px;
+}
+.btn-register{
+	background: none;border: none;
+}

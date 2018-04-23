@@ -36,9 +36,11 @@
    			</table>
    		</div>
    </div>
-<button onclick="myFunction()">In trang</button>
+<button id = "print" onclick="myFunction()">In trang</button>
 <script>
 function myFunction() {
+	document.getElementById('print').style.visibility= "hidden";
     window.print();
+    document.getElementById('print').style.visibility= "visible";
 }
 </script>

@@ -34,6 +34,7 @@ public class PublicHomeController {
 		modelMap.addAttribute("lCat",catDAO.getItems());
 		modelMap.addAttribute("slug",slugUtils);
 		modelMap.addAttribute("chunhiem",userDAO.getAdmin());
+		modelMap.addAttribute("newList",newsDAO.getNewItems());
 		if(principal != null){
 			modelMap.addAttribute("logged",userDAO.getItem(principal.getName()));
 		}
@@ -49,7 +50,7 @@ public class PublicHomeController {
 		}
 		modelMap.addAttribute("listNews",listNews);
 		
-		modelMap.addAttribute("newList",newsDAO.getNewItems());
+		
 		
 		return "public.clbtinhoc.index";
 	}

@@ -54,5 +54,9 @@ public class RolesDAO {
 		String sql = "DELETE FROM role_permissions WHERE id_role = ? AND id_permission = ?";
 		return jdbcTemplate.update(sql,new Object[]{id,i});
 	}
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM roles";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
 	
 }

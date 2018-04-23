@@ -1,0 +1,97 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.google.gson.Gson;
+
+import dao.ActivitiesDAO;
+import dao.CategoriesDAO;
+import dao.ContactsDAO;
+import dao.NewsDAO;
+import dao.RolesDAO;
+import dao.RulesDAO;
+import dao.UsersDAO;
+import entities.Statistics;
+
+@Controller
+public class AdminHomeController {
+	@Autowired
+	private ActivitiesDAO activitiesDAO;
+	@Autowired
+	private UsersDAO userDAO;
+	@Autowired
+	private CategoriesDAO catDAO;
+	@Autowired
+	private NewsDAO newsDAO;
+	@Autowired
+	private ContactsDAO contactDAO;
+	@Autowired
+	private RolesDAO roleDAO;
+	@Autowired
+	private RulesDAO ruleDAO;
+	
+	@RequestMapping("/admin")
+	public String index(ModelMap modelMap){
+		modelMap.addAttribute("totalActivities", activitiesDAO.getTotal());
+		modelMap.addAttribute("totalAccount",userDAO.getTotal());
+		modelMap.addAttribute("totalCategories",catDAO.getTotal());
+		modelMap.addAttribute("totalNews",newsDAO.getTotal());
+		modelMap.addAttribute("totalContacts",contactDAO.getTotal());
+		modelMap.addAttribute("totalRoles",roleDAO.getTotal());
+		modelMap.addAttribute("totalRules",ruleDAO.getTotal());
+		
+		
+		return "admin.home.index";
+	}
+	@RequestMapping("/admin/thong-ke-tai-khoan")
+	public String statistic(ModelMap modelMap){
+		Calendar now = Calendar.getInstance();
+		int currentYear = now.get(Calendar.YEAR);
+		List<Statistics> userData = userDAO.getUserStatistics(currentYear);
+		List<Statistics> dataPoints = new ArrayList<>();
+		for(int i = 1;i<=12;i++){
+			int y = 0;
+			for (Statistics userStatistics : userData) {
+				if(i == userStatistics.getX()){
+					y = userStatistics.getY();
+				}
+			}
+			Statistics objUS = new Statistics(i, y);
+			dataPoints.add(objUS);
+		}
+		
+		Gson gsonObj = new Gson();
+		modelMap.addAttribute("dataPoints",gsonObj.toJson(dataPoints));
+		
+		
+		return "admin.home.statistic";
+	}
+	
+	@RequestMapping("/admin/thong-ke-hoat-dong")
+	pubic String actStatistic(ModelMap modelMap){
+		Calendar now = Calendar.getInstance();
+		int currentYear = now.get(Calendar.YEAR);
+		List<Statistics> activityData = activitiesDAO.getActivityStatistics(currentYear);
+		List<Statistics> activityPoints = new ArrayList<>();
+		for(int i = 1;i<=12;i++){
+			int y = 0;
+			for (Statistics activityStatistics : activityData) {
+				if(i == activityStatistics.getX()){
+					y = activityStatistics.getY();
+				}
+			}
+			Statistics objUS = new Statistics(i, y);
+			activityPoints.add(objUS);
+		}
+		Gson gsonObj = new Gson();
+		modelMap.addAttribute("activityPoints",gsonObj.toJson(activityPoints));
+		return "admin.home.actstatistic";
+	}
+}

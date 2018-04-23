@@ -1,26 +1,28 @@
 package controller;
 
 import java.security.Principal;
+import java.sql.Timestamp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.ActivitiesDAO;
 import dao.CategoriesDAO;
-import dao.NewsDAO;
 import dao.UsersDAO;
+import entities.Activity;
+import entities.User;
 import utils.SlugUtils;
 
 @Controller
 public class PublicActivitiesController {
 	@Autowired
 	private ActivitiesDAO activityDAO;
-	@Autowired
-	private NewsDAO newsDAO;
 	@Autowired
 	private CategoriesDAO catDAO;
 	@Autowired
@@ -32,6 +34,7 @@ public class PublicActivitiesController {
 		modelMap.addAttribute("lCat",catDAO.getItems());
 		modelMap.addAttribute("slug",slugUtils);
 		modelMap.addAttribute("chunhiem",userDAO.getAdmin());
+		modelMap.addAttribute("newActivities",activityDAO.getNewItems());
 		if(principal != null){
 			modelMap.addAttribute("logged",userDAO.getItem(principal.getName()));
 		}
@@ -40,10 +43,39 @@ public class PublicActivitiesController {
 	@RequestMapping("/danh-sach-hoat-dong")
 	public String index(ModelMap modelMap,@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="5")int row_count) {
 		int offset = (page - 1) * row_count;
-		modelMap.addAttribute("listActivities",activityDAO.getItems(offset,row_count));
-		int total = (int)Math.ceil((float)activityDAO.countItems()/row_count);
+		modelMap.addAttribute("listActivities",activityDAO.getNewItems(offset,row_count));
+		int total = (int)Math.ceil((float)activityDAO.countNewItems()/row_count);
 		modelMap.addAttribute("total",total);
-		modelMap.addAttribute("newList",newsDAO.getNewItems());
 		return "public.activities.index";
+	}
+	@RequestMapping("/hoat-dong/{slug}/{id}")
+	public String detail(ModelMap modelMap,@PathVariable("id") int id){
+		Activity activity = activityDAO.getItem(id);
+		modelMap.addAttribute("objActivity",activity);
+		return "public.activities.detail";
+	}
+	@RequestMapping(value="/hoat-dong/{slug}/{id}",method=RequestMethod.POST)
+	public String add(@PathVariable("id") int id,Principal principal){
+		User user = userDAO.getItem(principal.getName());
+		Activity activity = activityDAO.getItem(id);
+		if(activityDAO.checkRegisted(id,user.getId())>0){
+			return "redirect:/danh-sach-hoat-dong?msg=registed";
+		}
+		if(activity.getJoined()<activity.getLimited()){
+			Timestamp joined_at = new Timestamp(System.currentTimeMillis());
+			if(activityDAO.registerEvent(id,user.getId(),joined_at)>0){
+				if(activityDAO.updateJoined(1,id)>0){
+					return "redirect:/lich-su-tham-gia/"+user.getId()+"?msg=add-success";
+				}
+				return "redirect:/danh-sach-hoat-dong?msg=add-error";
+			}
+			return "redirect:/danh-sach-hoat-dong?msg=add-error";
+		}
+		return "redirect:/danh-sach-hoat-dong?msg=full";
+	}
+	@RequestMapping("/lich-su-tham-gia/{id}")
+	public String history(@PathVariable("id") int id_user){
+		
+		return "public.activities.history";
 	}
 }

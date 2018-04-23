@@ -29,4 +29,5 @@
 
 <script src="<c:url value="/resources/admin/js/sb-admin-2.js"/>"></script>
 <script src="<c:url value="/resources/admin/js/jquery.tmpl.min.js"/>"></script>
+<script src="<c:url value="/resources/admin/js/canvas.js"/>"> </script>
 

@@ -1,0 +1,32 @@
+package entities;
+
+public class UserStatistics {
+	private int number;
+	private int month;
+	
+	public UserStatistics() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	public UserStatistics(int number, int month) {
+		super();
+		this.number = number;
+		this.month = month;
+	}
+
+
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	public int getMonth() {
+		return month;
+	}
+	public void setMonth(int month) {
+		this.month = month;
+	}
+	
+}

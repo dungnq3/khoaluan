@@ -41,4 +41,9 @@ public class CategoriesDAO {
 		String sql = "SELECT * FROM categories WHERE id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Category>(Category.class));
 	}
+
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM categories";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
 }

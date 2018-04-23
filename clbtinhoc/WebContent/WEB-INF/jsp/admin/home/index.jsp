@@ -31,21 +31,21 @@
 		</div>
 	</div>
 	<div class="col-lg-3 col-md-6">
-		<div class="panel panel-primary">
+		<div class="panel panel-info">
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-comments fa-5x"></i>
+						<i class="fa fa-user fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">26</div>
-						<div>New Comments!</div>
+						<div class="huge">${totalAccount}</div>
+						<div>Tài khoản</div>
 					</div>
 				</div>
 			</div>
-			<a href="#">
+			<a href="${pageContext.request.contextPath}/admin/users">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span> <span
+					<span class="pull-left">Truy cập</span> <span
 						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -60,14 +60,14 @@
 						<i class="fa fa-tasks fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">12</div>
-						<div>New Tasks!</div>
+						<div class="huge">${totalCategories}</div>
+						<div>Thể loại tin</div>
 					</div>
 				</div>
 			</div>
-			<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/categories">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span> <span
+					<span class="pull-left">Truy cập</span> <span
 						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -79,17 +79,17 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-shopping-cart fa-5x"></i>
+						<i class="fa fa-newspaper-o fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">124</div>
-						<div>New Orders!</div>
+						<div class="huge">${totalNews}</div>
+						<div>Tin tức</div>
 					</div>
 				</div>
 			</div>
-			<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/news">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span> <span
+					<span class="pull-left">Truy cập</span> <span
 						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>
@@ -101,17 +101,61 @@
 			<div class="panel-heading">
 				<div class="row">
 					<div class="col-xs-3">
-						<i class="fa fa-support fa-5x"></i>
+						<i class="fa fa-envelope fa-5x"></i>
 					</div>
 					<div class="col-xs-9 text-right">
-						<div class="huge">13</div>
-						<div>Support Tickets!</div>
+						<div class="huge">${totalContacts}</div>
+						<div>Ý kiến</div>
 					</div>
 				</div>
 			</div>
-			<a href="#">
+				<a href="${pageContext.request.contextPath}/admin/contacts">
 				<div class="panel-footer">
-					<span class="pull-left">View Details</span> <span
+					<span class="pull-left">Truy cập</span> <span
+						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-warning">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-envelope fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">${totalRoles}</div>
+						<div>Chức vụ</div>
+					</div>
+				</div>
+			</div>
+				<a href="${pageContext.request.contextPath}/admin/roles">
+				<div class="panel-footer">
+					<span class="pull-left">Truy cập</span> <span
+						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+					<div class="clearfix"></div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<div class="col-lg-3 col-md-6">
+		<div class="panel panel-danger">
+			<div class="panel-heading">
+				<div class="row">
+					<div class="col-xs-3">
+						<i class="fa fa-envelope fa-5x"></i>
+					</div>
+					<div class="col-xs-9 text-right">
+						<div class="huge">${totalRules}</div>
+						<div>Nội quy</div>
+					</div>
+				</div>
+			</div>
+				<a href="${pageContext.request.contextPath}/admin/rules">
+				<div class="panel-footer">
+					<span class="pull-left">Truy cập</span> <span
 						class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
 					<div class="clearfix"></div>
 				</div>

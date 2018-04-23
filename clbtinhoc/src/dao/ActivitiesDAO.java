@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import entities.Activity;
 import entities.Activity_Users;
+import entities.Statistics;
 
 @Repository
 public class ActivitiesDAO {
@@ -46,8 +48,8 @@ public class ActivitiesDAO {
 	}
 
 	public int editItem(Activity objActi) {
-		String sql = " UPDATE activities SET title = ?, content = ?, start_at = ?, end_at = ?, fee = ?, limited = ?, status = ? WHERE id = ?";
-		return jdbcTemplate.update(sql,new Object[]{objActi.getTitle(),objActi.getContent(),objActi.getStart_at(),objActi.getEnd_at(),objActi.getFee(),objActi.getLimited(),objActi.getStatus(),objActi.getId()});
+		String sql = " UPDATE activities SET title = ?, content = ?, start_at = ?, end_at = ?, fee = ?, limited = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{objActi.getTitle(),objActi.getContent(),objActi.getStart_at(),objActi.getEnd_at(),objActi.getFee(),objActi.getLimited(),objActi.getId()});
 	}
 	
 	public List<Activity_Users> getItems(int id_activity){
@@ -70,12 +72,36 @@ public class ActivitiesDAO {
 		return jdbcTemplate.update(sql, new Object[]{id});
 	}
 	
+	public List<Activity> getNewItems(int offset, int row_count) {
+		String sql = "SELECT * FROM activities WHERE status = 1 ORDER BY id DESC LIMIT ?,?";
+		return jdbcTemplate.query(sql,new Object[]{offset,row_count}, new BeanPropertyRowMapper<Activity>(Activity.class));
+	}
+	public int countNewItems(){
+		String sql = "SELECT COUNT(id) FROM activities WHERE status = 1";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 	public List<Activity> getNewItems() {
-		String sql = "SELECT * FROM activities WHERE WHERE status = 1 AND ORDER BY id DESC";
+		String sql = "SELECT * FROM activities WHERE status = 1 ORDER BY id DESC";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Activity>(Activity.class));
 	}
-	public List<Activity> getEndItems(int offset, int row_count) {
-		String sql = "SELECT * FROM activities WHERE WHERE id = 0 ORDER BY id DESC";
-		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Activity>(Activity.class));
+
+	public int registerEvent(int id, int id_user,Timestamp joined_at) {
+		String sql = "INSERT INTO user_activities(id_user,id_activity,joined_at) VALUES(?,?,?)";
+		return jdbcTemplate.update(sql,new Object[]{id_user,id,joined_at});
+	}
+
+	public int updateJoined(int i,int id) {
+		String sql = "UPDATE activities SET joined = joined + ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{i,id});
+	}
+
+	public int checkRegisted(int id, int id_user) {
+		String sql = "SELECT COUNT(id) FROM user_activities WHERE id_user = ? AND id_activity = ?";
+		return jdbcTemplate.queryForObject(sql,new Object[]{id_user,id},Integer.class);
+	}
+	public List<Statistics> getActivityStatistics(int currentYear) {
+		String sql = "SELECT count(id) as y, month(start_at) as x FROM activities WHERE YEAR(start_at) = ? GROUP BY x ORDER BY x";
+		
+		return jdbcTemplate.query(sql, new Object[]{currentYear},new BeanPropertyRowMapper<Statistics>(Statistics.class));
 	}
 }

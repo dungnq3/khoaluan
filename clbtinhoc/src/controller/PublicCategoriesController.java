@@ -30,6 +30,7 @@ public class PublicCategoriesController {
 		modelMap.addAttribute("lCat",catDAO.getItems());
 		modelMap.addAttribute("slug",slugUtils);
 		modelMap.addAttribute("chunhiem",userDAO.getAdmin());
+		modelMap.addAttribute("newList",newsDAO.getNewItems());
 		if(principal != null){
 			modelMap.addAttribute("logged",userDAO.getItem(principal.getName()));
 		}
@@ -42,7 +43,6 @@ public class PublicCategoriesController {
 		modelMap.addAttribute("listNews",newsDAO.getItems(id_cat,offset,row_count));
 		int total = (int)Math.ceil((float)newsDAO.countItems(id_cat)/row_count);
 		modelMap.addAttribute("total",total);
-		modelMap.addAttribute("newList",newsDAO.getNewItems());
 		return "public.categories.index";
 	}
 }

@@ -37,5 +37,9 @@ public class RulesDAO {
 		String sql = "SELECT COUNT(id) FROM rules";
 		return jdbcTemplate.queryForObject(sql, Integer.class);
 	}
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM rules";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
 
 }

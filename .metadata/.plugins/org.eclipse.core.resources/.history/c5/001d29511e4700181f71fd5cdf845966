@@ -1,0 +1,104 @@
+package dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import entities.User;
+import entities.UserStatistics;
+import utils.StringUtils;
+
+@Repository
+public class UsersDAO {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	@Autowired
+	private StringUtils stringUtils;
+
+	public int addItem(User objUser) {
+		String sql = "INSERT INTO users(firstname,lastname,username,email,password,klass,phone,id_role,created_at)"
+				+ " VALUES(?,?,?,?,?,?,?,?,?)";
+		int result = jdbcTemplate.update(sql,
+				new Object[] { objUser.getFirstname(), objUser.getLastname(), objUser.getUsername(), objUser.getEmail(),
+						stringUtils.md5(objUser.getPassword()), objUser.getKlass(),
+						objUser.getPhone(), objUser.getId_role(), objUser.getCreated_at() });
+		return result;
+	}
+
+	public Integer checkUserExist(String username) {
+		String sql = "SELECT COUNT(username) FROM users WHERE username = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[] { username }, Integer.class);
+	}
+
+	public List<User> getItems(int offset, int row_count) {
+		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id ORDER BY users.id LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[] { offset, row_count }, new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int countItems() {
+		String sql = " SELECT COUNT(id) FROM users";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+	public int countSearchItems(String firstname, String lastname) {
+		String sql = " SELECT COUNT(id) FROM users WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY))";
+		return jdbcTemplate.queryForObject(sql,new Object[]{lastname,firstname} ,Integer.class);
+	}
+	
+	public User getItem(int id) {
+		String sql = " SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE users.id = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int delItem(int id){
+		String sql = " DELETE FROM users WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[]{id});
+	}
+
+	public int editItem(int id, int role, String password) {
+		String sql = " UPDATE users SET id_role = ?, password = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{role,password,id});
+	}
+
+	public User getItem(String name) {
+		String sql = " SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE username = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{name},new BeanPropertyRowMapper<User>(User.class));
+	}
+	public int transferADMIN(int role, int id){
+		String sql = "UPDATE users SET id_role = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{role,id});
+	}
+	public List<User> search(String firstname, String lastname,int offset, int row_count){
+		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY)) ORDER BY users.firstname LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{lastname,firstname,offset,row_count}, new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public List<User> getItemsByRole(int id) {
+		String sql = "SELECT * FROM users WHERE id_role = ?";
+		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int toMember(int id_user, int id_role) {
+		String sql = "UPDATE users SET id_role = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id_role,id_user});
+	}
+	
+	public User getAdmin() {
+		String sql = " SELECT firstname,lastname,email,phone FROM users JOIN roles ON users.id_role = roles.id WHERE role = 'Chủ nhiệm'";
+		return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM users";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
+
+	public List<UserStatistics> getStatistics(int currentYear) {
+		String sql = "SELECT count(id) as y, month(created_at) as x FROM users WHERE YEAR(created_at) = ? GROUP BY month ORDER BY month";
+		
+		return jdbcTemplate.query(sql, new Object[]{currentYear},new BeanPropertyRowMapper<UserStatistics>(UserStatistics.class));
+	}
+}

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import entities.User;
+import entities.Statistics;
 import utils.StringUtils;
 
 @Repository
@@ -88,5 +89,16 @@ public class UsersDAO {
 	public User getAdmin() {
 		String sql = " SELECT firstname,lastname,email,phone FROM users JOIN roles ON users.id_role = roles.id WHERE role = 'Chủ nhiệm'";
 		return jdbcTemplate.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class));
+	}
+
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM users";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
+
+	public List<Statistics> getUserStatistics(int currentYear) {
+		String sql = "SELECT count(id) as y, month(created_at) as x FROM users WHERE YEAR(created_at) = ? GROUP BY x ORDER BY x";
+		
+		return jdbcTemplate.query(sql, new Object[]{currentYear},new BeanPropertyRowMapper<Statistics>(Statistics.class));
 	}
 }

@@ -38,4 +38,8 @@ public class ContactsDAO {
 		String sql = "SELECT COUNT(id) FROM contacts WHERE id_user = ? AND content = ?";
 		return jdbcTemplate.queryForObject(sql,new Object[]{objContact.getId_user(),objContact.getContent()},Integer.class);
 	}
+	public Object getTotal() {
+		String sql = "SELECT COUNT(id) FROM contacts";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
 }

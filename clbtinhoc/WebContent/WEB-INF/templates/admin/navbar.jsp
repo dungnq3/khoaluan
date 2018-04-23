@@ -36,15 +36,15 @@
 				<li><a href="${pageContext.request.contextPath}/admin"><i
 						class="fa fa-dashboard fa-fw"></i> Trang chủ</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/users"><i
-						class="fa fa-dashboard fa-fw"></i> Quản lý thành viên</a></li>
+						class="fa fa-user fa-fw"></i> Quản lý thành viên</a></li>
 				<li><a href="${pageContext.request.contextPath}/admin/rules"><i
-						class="fa fa-dashboard fa-fw"></i> Quản lý nội quy</a></li>
+						class="fa fa-pencil fa-fw"></i> Quản lý nội quy</a></li>
 				<li><a
 					href="${pageContext.request.contextPath}/admin/activities"><i
-						class="fa fa-dashboard fa-fw"></i> Quản lý hoạt
+						class="fa fa-list-alt fa-fw"></i> Quản lý hoạt
 						động</a></li>
 
-				<li><a href="#"><i class="fa fa-dashboard fa-fw"></i> Quản
+				<li><a href="#"><i class="fa fa-tasks fa-fw"></i> Quản
 						lý tin tức<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
 						<li><a href="${pageContext.request.contextPath}/admin/news">Tin
@@ -57,6 +57,14 @@
 					</ul></li>
 				<li><a href="${pageContext.request.contextPath}/admin/roles"><i
 						class="fa fa-user-secret fa-fw"></i> Quản lý chức vụ</a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/contacts"><i
+						class="fa fa-envelope fa-fw"></i> Quản lý ý kiến</a></li>
+				<li><a href="#"><i class="fa fa-tasks fa-fw"></i>Thống kê<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="${pageContext.request.contextPath}/admin/thong-ke-tai-khoan">Tài Khoản</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/admin/thong-ke-hoat-dong">Hoạt động</a></li>
+					</ul></li>
 			</ul>
 			
 			

@@ -443,3 +443,7 @@ table.dataTable thead .sorting:after {
  .checkbox-container ul { list-style: none;  display: block; }
  
 .checkbox-container input[type="checkbox"] {}
+.overflow-contact p{
+	height: 20px;
+	overflow: hidden;
+}

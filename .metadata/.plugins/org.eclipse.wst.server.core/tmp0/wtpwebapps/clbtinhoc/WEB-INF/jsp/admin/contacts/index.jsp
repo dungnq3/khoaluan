@@ -33,18 +33,20 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>ID</th>
+								<th style="text-align: center;">STT</th>
 								<th>Họ và tên</th>
-								<th>Lớp</th>
-								<th>Chức năng</th>
+								<th width="200px">Nội dung</th>
+								<th style="text-align: center;">Lớp</th>
+								<th style="text-align: center;">Chức năng</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listContacts}" var="objContacts">
+							<c:forEach items="${listContacts}" var="objContacts" varStatus="loop">
 								<tr>
-									<td style="text-align: center;">${objContacts.id}</td>
+									<td style="text-align: center;">${loop.index + 1}</td>
 									<td><a
 										href="${pageContext.request.contextPath}/admin/contacts/${objContacts.id}">${objContacts.lastname} ${objContacts.firstname}</a></td>
+									<td class="overflow-contact">${objContacts.content}</td>
 									<td style="text-align: center;">${objContacts.klass}</td>
 									<c:set var="delUrl"
 										value="${pageContext.request.contextPath}/admin/activities/del/${objActivity.id}"></c:set>

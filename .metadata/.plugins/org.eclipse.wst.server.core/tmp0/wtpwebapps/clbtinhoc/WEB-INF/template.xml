@@ -18,6 +18,12 @@
   <definition name="admin.home.index" extends="admin.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/home/index.jsp" />
   </definition>
+    <definition name="admin.home.statistic" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/home/statistic.jsp" />
+  </definition>
+   <definition name="admin.home.actstatistic" extends="admin.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/admin/home/actstatistic.jsp" />
+  </definition>
    <definition name="admin.users.index" extends="admin.template">
     <put-attribute name="content" value="/WEB-INF/jsp/admin/users/index.jsp" />
   </definition>
@@ -145,5 +151,8 @@
   </definition>
    <definition name="public.activities.index" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/activities/index.jsp" />
+  </definition>
+   <definition name="public.activities.detail" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/activities/detail.jsp" />
   </definition>
 </tiles-definitions>

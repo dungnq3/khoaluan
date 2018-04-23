@@ -83,4 +83,9 @@ public class NewsDAO {
 		String sql = "UPDATE news SET view = view + 1 WHERE id = ?";
 		return jdbcTemplate.update(sql,new Object[]{id_news});
 	}
+
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM news";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
 }

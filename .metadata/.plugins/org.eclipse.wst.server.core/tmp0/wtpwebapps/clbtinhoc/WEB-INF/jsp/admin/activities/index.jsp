@@ -64,7 +64,7 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th style="text-align: center;" width="5%">ID</th>
+								<th style="text-align: center;" width="5%">STT</th>
 								<th>Tên hoạt động</th>
 								<th style="text-align: center;" width="20%">Ngày đăng ký - Kết thúc</th>
 								<th style="text-align: center;">Số lượng tối đa</th>
@@ -74,9 +74,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${listActivities}" var="objActivity">
+							<c:forEach items="${listActivities}" var="objActivity" varStatus="loop">
 								<tr>
-									<td style="text-align: center;">${objActivity.id}</td>
+									<td style="text-align: center;">${loop.index + 1}</td>
 									<td><a href="${pageContext.request.contextPath}/admin/activities/${objActivity.id}">${objActivity.title}</a></td>
 									<td style="text-align: center;">${objActivity.start_at} - ${objActivity.end_at}</td>
 									<td style="text-align: center;">${objActivity.limited}</td>
