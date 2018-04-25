@@ -104,4 +104,19 @@ public class ActivitiesDAO {
 		
 		return jdbcTemplate.query(sql, new Object[]{currentYear},new BeanPropertyRowMapper<Statistics>(Statistics.class));
 	}
+
+	public List<Activity> search(String lowerCase, int offset, int row_count) {
+		String sql = "SELECT * FROM activities WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%') ORDER BY id DESC LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{lowerCase,offset,row_count},new BeanPropertyRowMapper<Activity>(Activity.class));
+	}
+
+	public int countSearchItems(String lowerCase) {
+		String sql = "SELECT COUNT(*) FROM activities WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%')";
+		return jdbcTemplate.queryForObject(sql,new Object[]{lowerCase},Integer.class);
+	}
+
+	public List<Activity_Users> getUserItems(int id_user) {
+		String sql = "SELECT activities.*, joined_at FROM activities JOIN user_activities ON activities.id = user_activities.id_activity WHERE id_user = ? ORDER BY joined_at";
+		return jdbcTemplate.query(sql, new Object[]{id_user},new BeanPropertyRowMapper<Activity_Users>(Activity_Users.class));
+	}
 }

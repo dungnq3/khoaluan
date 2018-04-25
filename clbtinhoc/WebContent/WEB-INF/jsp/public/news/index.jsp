@@ -22,12 +22,12 @@
 
 	<div class="col-md-4 content-main-right">
 		<div class="search">
-			<h3>TÌM KIẾM TIN TỨC</h3>
-			<form>
-				<input type="text" value="" onfocus="this.value=''"
-					onblur="this.value=''"> <input type="submit" value="">
-			</form>
-		</div>
+						 <h3>TÌM KIẾM TIN TỨC</h3>
+						<form action="${pageContext.request.contextPath}/tim-kiem-tin-tuc" method="get">
+							<input type="text" name="search">
+							<input type="submit" value="">
+						</form>
+				 </div>
 
 		<div class="categories">
 			<h3>Tin tức mới nhất</h3>

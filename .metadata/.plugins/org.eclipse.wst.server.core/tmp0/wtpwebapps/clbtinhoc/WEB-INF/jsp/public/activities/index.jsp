@@ -49,7 +49,8 @@
 						<td style="text-align: center;">${objActivity.fee}</td>
 						<td style="text-align: center;">${objActivity.limited}</td>
 						<td style="text-align: center;">${objActivity.joined}</td>
-						<td style="text-align: center;"><c:choose>
+						<td style="text-align: center;">
+						<c:choose>
 								<c:when test="${objActivity.joined == objActivity.limited}">
 									<a onclick="return alert('Hết số lượng đăng ký!')"><img alt="Đủ số lượng"
 						src='<c:url value="/resources/public/images/dusoluong.png"></c:url>'></a>
@@ -83,9 +84,8 @@
 	<div class="col-md-4 content-main-right">
 		<div class="search">
 			<h3>TÌM KIẾM HOẠT ĐỘNG</h3>
-			<form>
-				<input type="text" value="" onfocus="this.value=''"
-					onblur="this.value=''"> <input type="submit" value="">
+			<form action="${pageContext.request.contextPath}/tim-kiem-hoat-dong" method="get">
+				<input type="text" name="search"> <input type="submit" value="">
 			</form>
 		</div>
 

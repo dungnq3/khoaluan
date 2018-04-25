@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.CategoriesDAO;
 import dao.NewsDAO;
@@ -42,5 +43,14 @@ public class PublicNewsController {
 		modelMap.addAttribute("objNews",newsDAO.getItem(id_news));
 		
 		return "public.news.index";
+	}
+	@RequestMapping("/tim-kiem-tin-tuc")
+	public String search(ModelMap modelMap, @RequestParam("search") String search,@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
+		modelMap.addAttribute("search",search.toLowerCase());
+		int offset = (page - 1) * row_count;
+		modelMap.addAttribute("listNews",newsDAO.search(search.toLowerCase(),offset,row_count));
+		int total = (int)Math.ceil((float)newsDAO.countSearchItems(search.toLowerCase())/row_count);
+		modelMap.addAttribute("total", total);
+		return "public.news.search";
 	}
 }

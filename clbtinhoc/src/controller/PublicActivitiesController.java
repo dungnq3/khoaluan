@@ -74,8 +74,17 @@ public class PublicActivitiesController {
 		return "redirect:/danh-sach-hoat-dong?msg=full";
 	}
 	@RequestMapping("/lich-su-tham-gia/{id}")
-	public String history(@PathVariable("id") int id_user){
-		
+	public String history(ModelMap modelMap,@PathVariable("id") int id_user){
+		modelMap.addAttribute("listActivities",activityDAO.getUserItems(id_user));
 		return "public.activities.history";
+	}
+	@RequestMapping("/tim-kiem-hoat-dong")
+	public String search(ModelMap modelMap, @RequestParam("search") String search,@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
+		modelMap.addAttribute("search",search.toLowerCase());
+		int offset = (page - 1) * row_count;
+		modelMap.addAttribute("listActivities",activityDAO.search(search.toLowerCase(),offset,row_count));
+		int total = (int)Math.ceil((float)activityDAO.countSearchItems(search.toLowerCase())/row_count);
+		modelMap.addAttribute("total", total);
+		return "public.activities.search";
 	}
 }

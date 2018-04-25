@@ -8,6 +8,8 @@ public class Activity_Users {
 	private String firstname;
 	private String klass;
 	private String joined_at;
+	private String title;
+	private float fee;
 	public Activity_Users() {
 		// TODO Auto-generated constructor stub
 	}
@@ -22,6 +24,16 @@ public class Activity_Users {
 		this.firstname = firstname;
 		this.klass = klass;
 		this.joined_at = joined_at;
+	}
+	
+	public Activity_Users(int id, int id_user, int id_activity, String joined_at, String title, float fee) {
+		super();
+		this.id = id;
+		this.id_user = id_user;
+		this.id_activity = id_activity;
+		this.joined_at = joined_at;
+		this.title = title;
+		this.fee = fee;
 	}
 
 	public String getLastname() {
@@ -72,5 +84,22 @@ public class Activity_Users {
 	public void setJoined_at(String joined_at) {
 		this.joined_at = joined_at;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public float getFee() {
+		return fee;
+	}
+
+	public void setFee(float fee) {
+		this.fee = fee;
+	}
+	
 }
 	

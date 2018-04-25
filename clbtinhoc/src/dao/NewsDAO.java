@@ -88,4 +88,13 @@ public class NewsDAO {
 		String sql = "SELECT COUNT(id) FROM news";
 		return jdbcTemplate.queryForObject(sql,Integer.class);
 	}
+	
+	public int countSearchItems(String str) {
+		String sql = "SELECT COUNT(*) FROM news WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%')";
+		return jdbcTemplate.queryForObject(sql,new Object[]{str}, Integer.class);
+	}
+	public List<News> search(String str,int offset,int row_count){
+		String sql = "SELECT * FROM news WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%') ORDER BY id DESC LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{str,offset,row_count}, new BeanPropertyRowMapper<News>(News.class));
+	}
 }

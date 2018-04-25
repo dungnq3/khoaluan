@@ -1,0 +1,100 @@
+package dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import entities.News;
+
+@Repository
+public class NewsDAO {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+	
+	public List<News> getItems(int offset, int row_count){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id ORDER BY news.id LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{offset,row_count},new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public List<News> getNullItems(int offset, int row_count){
+		String sql = "SELECT id,title,content,created_at,updated_at,view,write_by FROM news WHERE id_cat IS NULL ORDER BY id LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{offset,row_count},new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public int addItem(News objNews){
+		String sql = "INSERT INTO news(title,content,created_at,updated_at,id_cat,write_by) VALUES(?,?,?,?,?,?)";
+		return jdbcTemplate.update(sql,new Object[]{objNews.getTitle(),objNews.getContent(),objNews.getCreated_at(),objNews.getUpdated_at(),objNews.getId_cat(),objNews.getWrite_by()});
+	}
+	
+	public int editItem(News objNews){
+		String sql = "UPDATE news SET title = ?, content = ?, updated_at = ?, id_cat = ?, write_by = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{objNews.getTitle(),objNews.getContent(),objNews.getUpdated_at(),objNews.getId_cat(),objNews.getWrite_by(),objNews.getId()});
+	}
+	
+	public int delItem(int id){
+		String sql = "DELETE FROM news WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id});
+	}
+	
+	public News getItem(int id){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE news.id = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{id},new BeanPropertyRowMapper<News>(News.class));
+	}
+
+	public int countItems() {
+		String sql = "SELECT COUNT(*) FROM news";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+
+	public int countNullItems() {
+		String sql = "SELECT COUNT(id) FROM news WHERE id_cat IS NULL";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
+	
+	public List<News> getLimitItems(int id_cat) {
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ? ORDER BY news.id DESC LIMIT 2";
+		return jdbcTemplate.query(sql,new Object[]{id_cat}, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	/*public List<News> getItems(int id_cat) {
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ?";
+		return jdbcTemplate.query(sql,new Object[]{id_cat}, new BeanPropertyRowMapper<News>(News.class));
+	}*/
+	
+	public List<News> getItems(int id_cat, int offset, int row_count){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id WHERE id_cat = ? ORDER BY news.id LIMIT ?,?";
+		return jdbcTemplate.query(sql,new Object[]{id_cat,offset,row_count}, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public List<News> getNewItems(){
+		String sql = "SELECT news.*,name_cat FROM news JOIN categories ON news.id_cat = categories.id ORDER BY news.id DESC LIMIT 10";
+		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<News>(News.class));
+	}
+	
+	public int countItems(int id_cat) {
+		String sql = "SELECT COUNT(*) FROM news WHERE id_cat = ?";
+		return jdbcTemplate.queryForObject(sql,new Object[]{id_cat} ,Integer.class);
+	}
+
+	public int setView(int id_news) {
+		String sql = "UPDATE news SET view = view + 1 WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id_news});
+	}
+
+	public int getTotal() {
+		String sql = "SELECT COUNT(id) FROM news";
+		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
+	
+	public int countSearchItems(String str) {
+		String sql = "SELECT COUNT(*) FROM news WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%')";
+		return jdbcTemplate.queryForObject(sql,new Object[]{str}, Integer.class);
+	}
+	public List<News> search(String str,int offset,int row_count){
+		String sql = "SELECT * FROM news WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%') ORDER BY id LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{str,offset,row_count}, new BeanPropertyRowMapper<News>(News.class));
+	}
+}

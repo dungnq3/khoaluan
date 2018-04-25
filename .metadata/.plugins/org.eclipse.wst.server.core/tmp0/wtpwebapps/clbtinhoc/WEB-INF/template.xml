@@ -149,10 +149,19 @@
    <definition name="public.news.index" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/news/index.jsp" />
   </definition>
+  <definition name="public.news.search" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/news/search.jsp" />
+  </definition>
    <definition name="public.activities.index" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/activities/index.jsp" />
   </definition>
    <definition name="public.activities.detail" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/activities/detail.jsp" />
+  </definition>
+  <definition name="public.activities.search" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/activities/search.jsp" />
+  </definition>
+    <definition name="public.activities.history" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/activities/history.jsp" />
   </definition>
 </tiles-definitions>
