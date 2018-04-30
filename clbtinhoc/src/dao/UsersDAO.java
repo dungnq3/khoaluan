@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import entities.User;
+import entities.User_Update;
 import entities.Statistics;
 import utils.StringUtils;
 
@@ -44,8 +45,8 @@ public class UsersDAO {
 	}
 	
 	public int countSearchItems(String firstname, String lastname) {
-		String sql = " SELECT COUNT(id) FROM users WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY))";
-		return jdbcTemplate.queryForObject(sql,new Object[]{lastname,firstname} ,Integer.class);
+		String sql = " SELECT COUNT(id) FROM users WHERE LOWER(lastname) LIKE CONCAT(CONVERT(?,BINARY),'%') AND LOWER(firstname) LIKE CONCAT('%',CONVERT(?,BINARY))";
+		return jdbcTemplate.queryForObject(sql,new Object[]{lastname.toLowerCase(),firstname.toLowerCase()} ,Integer.class);
 	}
 	
 	public User getItem(int id) {
@@ -72,8 +73,8 @@ public class UsersDAO {
 		return jdbcTemplate.update(sql,new Object[]{role,id});
 	}
 	public List<User> search(String firstname, String lastname,int offset, int row_count){
-		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE lastname LIKE CONCAT(CONVERT(?,BINARY),'%') AND firstname LIKE CONCAT('%',CONVERT(?,BINARY)) ORDER BY users.firstname LIMIT ?,?";
-		return jdbcTemplate.query(sql, new Object[]{lastname,firstname,offset,row_count}, new BeanPropertyRowMapper<User>(User.class));
+		String sql = "SELECT users.*,role FROM users JOIN roles ON users.id_role = roles.id WHERE LOWER(lastname) LIKE CONCAT(CONVERT(?,BINARY),'%') AND LOWER(firstname) LIKE CONCAT('%',CONVERT(?,BINARY)) ORDER BY users.firstname LIMIT ?,?";
+		return jdbcTemplate.query(sql, new Object[]{lastname.toLowerCase(),firstname.toLowerCase(),offset,row_count}, new BeanPropertyRowMapper<User>(User.class));
 	}
 
 	public List<User> getItemsByRole(int id) {
@@ -100,5 +101,15 @@ public class UsersDAO {
 		String sql = "SELECT count(id) as y, month(created_at) as x FROM users WHERE YEAR(created_at) = ? GROUP BY x ORDER BY x";
 		
 		return jdbcTemplate.query(sql, new Object[]{currentYear},new BeanPropertyRowMapper<Statistics>(Statistics.class));
+	}
+
+	public int updateItem(User_Update objUser) {
+		String sql = "UPDATE users SET klass = ?, lastname = ?, firstname = ?, phone = ?, email = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{objUser.getKlass(),objUser.getLastname(),objUser.getFirstname(),objUser.getPhone(),objUser.getEmail(),objUser.getId()});
+	}
+
+	public int updatePassword(int id, String password) {
+		String sql = "UPDATE users SET password = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{password,id});
 	}
 }

@@ -97,4 +97,14 @@ public class NewsDAO {
 		String sql = "SELECT * FROM news WHERE LOWER(title) LIKE CONCAT('%',CONVERT(?,BINARY),'%') ORDER BY id DESC LIMIT ?,?";
 		return jdbcTemplate.query(sql, new Object[]{str,offset,row_count}, new BeanPropertyRowMapper<News>(News.class));
 	}
+
+	public List<News> getItemsByWriter(int id) {
+		String sql = "SELECT * FROM news WHERE write_by = ?";
+		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<News>(News.class));
+	}
+
+	public int updateWriter(int id, int id2) {
+		String sql = "UPDATE news SET write_by = ? where id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id2,id});
+	}
 }

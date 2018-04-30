@@ -30,7 +30,7 @@
 						<th style="text-align: center;">Ngày đóng đăng ký</th> -->
 					<th style="text-align: center;">Phí tham gia (VNĐ)</th>
 					<th style="text-align: center;">Ngày đăng ký</th>
-					<th style="text-align: center;">Chức năng</th>
+					<th style="text-align: center;">Trạng thái</th>
 				</tr>
 				<c:forEach items="${listActivities}" var="objActivity"
 					varStatus="loop">
@@ -38,33 +38,21 @@
 						<td style="text-align: center;">${loop.index + 1}</td>
 						<td><a
 							href="${pageContext.request.contextPath}/hoat-dong/${slug.makeSlug(objActivity.title)}/${objActivity.id}">${objActivity.title}</a></td>
-						<%-- <td style="text-align: center;"><fmt:parseDate value="${objActivity.start_at}" var="start" pattern="dd-MM-yyyy" />
-						<fmt:formatDate pattern = "dd-MM-yyyy" 
-         value = "${start}" />
-						</td>
-						<td style="text-align: center;"><fmt:parseDate value="${objActivity.end_at}" var="end" pattern="dd-MM-yyyy" />
-						<fmt:formatDate pattern = "dd-MM-yyyy" 
-         value = "${end}" /></td> --%>
 						<td style="text-align: center;">${objActivity.fee}</td>
-						<td style="text-align: center;">${objActivity.limited}</td>
-						<td style="text-align: center;">${objActivity.joined}</td>
+						<td style="text-align: center;">${objActivity.joined_at}</td>
 						<td style="text-align: center;">
 						<c:choose>
-								<c:when test="${objActivity.joined == objActivity.limited}">
-									<a onclick="return alert('Hết số lượng đăng ký!')"><img alt="Đủ số lượng"
-						src='<c:url value="/resources/public/images/dusoluong.png"></c:url>'></a>
-								</c:when>
-								<c:otherwise>
-									<form
-										action="${pageContext.request.contextPath}/hoat-dong/${slug.makeSlug(objActivity.title)}/${objActivity.id}"
-										method="post">
-										<button class="btn-register" type="submit">
-											<img alt="Tham gia"
-												src='<c:url value="/resources/public/images/thamgia.png"></c:url>'>
-										</button>
-									</form>
-								</c:otherwise>
-							</c:choose></td>
+							<c:when test="${objActivity.status eq 1}">
+								<a href="${pageContext.request.contextPath}/huy-tham-gia/${objActivity.id}"><img alt="Hủy đăng ký" src="<c:url value="/resources/public/images/huy.png"></c:url>"></a>
+							</c:when>
+							<c:when test="${objActivity.status eq 0}">
+								<a onclick="return alert('Hoạt động đã đóng cổng đăng ký')"><img alt="Hết hạn" src="<c:url value="/resources/public/images/hethan.png"></c:url>"></a>
+							</c:when>
+							<c:otherwise>
+								<a onclick="return alert('Hoạt động đã kết thúc')"><img alt="Kết thúc" src='<c:url value="/resources/public/images/end.png"></c:url>'></a>
+							</c:otherwise>
+						</c:choose>
+						</td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -10,6 +10,7 @@ public class Activity_Users {
 	private String joined_at;
 	private String title;
 	private float fee;
+	private int status;
 	public Activity_Users() {
 		// TODO Auto-generated constructor stub
 	}
@@ -34,6 +35,31 @@ public class Activity_Users {
 		this.joined_at = joined_at;
 		this.title = title;
 		this.fee = fee;
+	}
+
+	
+	
+	public Activity_Users(int id, int id_user, int id_activity, String lastname, String firstname, String klass,
+			String joined_at, String title, float fee, int status) {
+		super();
+		this.id = id;
+		this.id_user = id_user;
+		this.id_activity = id_activity;
+		this.lastname = lastname;
+		this.firstname = firstname;
+		this.klass = klass;
+		this.joined_at = joined_at;
+		this.title = title;
+		this.fee = fee;
+		this.status = status;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public String getLastname() {

@@ -8,6 +8,7 @@
 	</div>
 </div>
 <div class="row">
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -30,6 +31,8 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-info">
 			<div class="panel-heading">
@@ -52,6 +55,8 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_CAT_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-green">
 			<div class="panel-heading">
@@ -74,6 +79,8 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_NEWS_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-yellow">
 			<div class="panel-heading">
@@ -96,6 +103,7 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-red">
 			<div class="panel-heading">
@@ -118,6 +126,7 @@
 			</a>
 		</div>
 	</div>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ROLES_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-warning">
 			<div class="panel-heading">
@@ -140,6 +149,8 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
+	<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_RULE_MANAGER')">
 	<div class="col-lg-3 col-md-6">
 		<div class="panel panel-danger">
 			<div class="panel-heading">
@@ -162,5 +173,6 @@
 			</a>
 		</div>
 	</div>
+	</sec:authorize>
 </div>
 <!-- /.row -->

@@ -22,7 +22,7 @@
 				<i class="fa fa-caret-down"></i>
 		</a>
 			<ul class="dropdown-menu dropdown-user">
-				<li><a href="#"><i class="fa fa-user fa-fw"></i> Thông tin
+				<li><a href="${pageContext.request.contextPath}/thong-tin-ca-nhan"><i class="fa fa-user fa-fw"></i> Thông tin
 						tài khoản</a></li>
 				<li class="divider"></li>
 				<li><a href="${pageContext.request.contextPath}/logout"><i
@@ -33,30 +33,46 @@
 	<div class="navbar-default sidebar" role="navigation">
 		<div class="sidebar-nav navbar-collapse">
 			<ul class="nav" id="side-menu">
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ACCESS_ADMIN')">
 				<li><a href="${pageContext.request.contextPath}/admin"><i
 						class="fa fa-dashboard fa-fw"></i> Trang chủ</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_USER_MANAGER')">
 				<li><a href="${pageContext.request.contextPath}/admin/users"><i
 						class="fa fa-user fa-fw"></i> Quản lý thành viên</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_RULE_MANAGER')">
 				<li><a href="${pageContext.request.contextPath}/admin/rules"><i
 						class="fa fa-pencil fa-fw"></i> Quản lý nội quy</a></li>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ACTIVITY_MANAGER')">
 				<li><a
 					href="${pageContext.request.contextPath}/admin/activities"><i
 						class="fa fa-list-alt fa-fw"></i> Quản lý hoạt
 						động</a></li>
-
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_NEWS_MANAGER','ROLE_CAT_MANAGER')">
 				<li><a href="#"><i class="fa fa-tasks fa-fw"></i> Quản
 						lý tin tức<span class="fa arrow"></span></a>
 					<ul class="nav nav-second-level">
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_NEWS_MANAGER')">
 						<li><a href="${pageContext.request.contextPath}/admin/news">Tin
 								tức</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/admin/news/no-cat">Tin tức chưa có thể loại</a></li>
+					</sec:authorize>	
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_CAT_MANAGER')">
 						<li><a
 							href="${pageContext.request.contextPath}/admin/categories">Loại
 								tin</a></li>
+					</sec:authorize>
 					</ul></li>
+			</sec:authorize>
+			<sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_ROLES_MANAGER')">
 				<li><a href="${pageContext.request.contextPath}/admin/roles"><i
 						class="fa fa-user-secret fa-fw"></i> Quản lý chức vụ</a></li>
+			</sec:authorize>
+			
 				<li><a href="${pageContext.request.contextPath}/admin/contacts"><i
 						class="fa fa-envelope fa-fw"></i> Quản lý ý kiến</a></li>
 				<li><a href="#"><i class="fa fa-tasks fa-fw"></i>Thống kê<span class="fa arrow"></span></a>

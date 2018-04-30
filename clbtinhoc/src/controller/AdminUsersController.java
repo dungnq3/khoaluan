@@ -2,6 +2,7 @@ package controller;
 
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -15,8 +16,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import dao.ActivitiesDAO;
+import dao.NewsDAO;
 import dao.RolesDAO;
+import dao.RulesDAO;
 import dao.UsersDAO;
+import entities.Activity;
+import entities.News;
+import entities.Rule;
 import entities.User;
 import utils.StringUtils;
 
@@ -26,6 +33,12 @@ public class AdminUsersController {
 	private UsersDAO userDAO;
 	@Autowired
 	private RolesDAO rolesDAO;
+	@Autowired
+	private RulesDAO rulesDAO;
+	@Autowired
+	private ActivitiesDAO activityDAO;
+	@Autowired
+	private NewsDAO newsDAO;
 	@Autowired
 	private StringUtils stringUtils;
 	
@@ -98,7 +111,25 @@ public class AdminUsersController {
 		if(prin.getId() == id){
 			return "redirect:/admin/users?msg=del-error";
 		}
+		List<Rule> rule = rulesDAO.getItemByWriter(id);
+		List<News> listNews = newsDAO.getItemsByWriter(id);
+		List<Activity> listActivities = activityDAO.getItemsByJoin(id);
 		if(userDAO.delItem(id)>0){
+			if(listActivities.size()>0){
+				for (Activity activity : listActivities) {
+					activityDAO.updateJoined(activity.getId());
+				}
+			}
+			if(rule.size()>0){
+				for(Rule rules: rule){
+					rulesDAO.updateWriter(rules.getId(),prin.getId());
+				}
+			}
+			if(listNews.size()>0){
+				for (News news : listNews) {
+					newsDAO.updateWriter(news.getId(),prin.getId());
+				}
+			}
 			return "redirect:/admin/users?msg=del-success";
 		}
 		return "redirect:/admin/users?msg=del-error";

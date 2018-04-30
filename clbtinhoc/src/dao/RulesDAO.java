@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -19,6 +21,11 @@ public class RulesDAO {
 	public Rule getItem(int id){
 		String sql = "SELECT * FROM rules WHERE id = ?";
 		return jdbcTemplate.queryForObject(sql, new Object[]{id}, new BeanPropertyRowMapper<Rule>(Rule.class));
+	}
+	
+	public List<Rule> getItemByWriter(int id){
+		String sql = "SELECT * FROM rules WHERE write_by = ?";
+		return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<Rule>(Rule.class));
 	}
 	public int addItem(Rule objRule){
 		String sql = "INSERT INTO rules(content, write_by) VALUES(?,?)";
@@ -40,6 +47,11 @@ public class RulesDAO {
 	public int getTotal() {
 		String sql = "SELECT COUNT(id) FROM rules";
 		return jdbcTemplate.queryForObject(sql,Integer.class);
+	}
+	public int updateWriter(int id,int id_user) {
+		String sql = "UPDATE rules SET writer_by = ? WHERE id = ?";
+		return jdbcTemplate.update(sql,new Object[]{id_user,id});
+		
 	}
 
 }

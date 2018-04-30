@@ -64,6 +64,16 @@ public class User {
 	}
 	
 	
+	public User(int id, String firstname, String lastname, String email, String phone, String klass) {
+		super();
+		this.id = id;
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.phone = phone;
+		this.klass = klass;
+	}
+
 	public int getEnabled() {
 		return enabled;
 	}

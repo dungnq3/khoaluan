@@ -65,7 +65,7 @@ public class PublicActivitiesController {
 			Timestamp joined_at = new Timestamp(System.currentTimeMillis());
 			if(activityDAO.registerEvent(id,user.getId(),joined_at)>0){
 				if(activityDAO.updateJoined(1,id)>0){
-					return "redirect:/lich-su-tham-gia/"+user.getId()+"?msg=add-success";
+					return "redirect:/lich-su-tham-gia?msg=add-success";
 				}
 				return "redirect:/danh-sach-hoat-dong?msg=add-error";
 			}
@@ -73,11 +73,25 @@ public class PublicActivitiesController {
 		}
 		return "redirect:/danh-sach-hoat-dong?msg=full";
 	}
-	@RequestMapping("/lich-su-tham-gia/{id}")
-	public String history(ModelMap modelMap,@PathVariable("id") int id_user){
-		modelMap.addAttribute("listActivities",activityDAO.getUserItems(id_user));
+	@RequestMapping("/lich-su-tham-gia")
+	public String history(ModelMap modelMap,Principal principal){
+		modelMap.addAttribute("listActivities",activityDAO.getUserItems(userDAO.getItem(principal.getName()).getId()));
 		return "public.activities.history";
 	}
+	
+	@RequestMapping("/huy-tham-gia/{id}")
+	public String delete(Principal principal,@PathVariable("id") int id){
+		User user = userDAO.getItem(principal.getName());
+		Activity activity = activityDAO.getItem(id);
+		if(activity.getStatus() == 1){
+			if(activityDAO.deleteItem(id,user.getId())>0){
+				activityDAO.updateJoined(id);
+				return "redirect:/lich-su-tham-gia?msg=del-success";
+			}
+		}
+		return "redirect:/lich-su-tham-gia?msg=del-error";
+	}
+	
 	@RequestMapping("/tim-kiem-hoat-dong")
 	public String search(ModelMap modelMap, @RequestParam("search") String search,@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="row_count", defaultValue="10")int row_count){
 		modelMap.addAttribute("search",search.toLowerCase());

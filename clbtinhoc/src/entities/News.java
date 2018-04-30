@@ -1,5 +1,7 @@
 package entities;
 
+import javax.validation.constraints.Null;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 public class News {
@@ -13,6 +15,8 @@ public class News {
 	private int view;
 	private int id_cat;
 	private String name_cat;
+	
+	@Null
 	private int write_by;
 	public News() {
 		// TODO Auto-generated constructor stub
@@ -30,9 +34,17 @@ public class News {
 		this.view = view;
 		this.write_by = write_by;
 	}
-
-
-
+	
+	public News(int id, String title, String content, String created_at, String updated_at, int view) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.created_at = created_at;
+		this.updated_at = updated_at;
+		this.view = view;
+	}
+	
 	public News(int id, String title, String content, String created_at, String updated_at, int view, int id_cat,
 			int write_by) {
 		super();

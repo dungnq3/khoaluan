@@ -19,7 +19,8 @@
 		<li><div class="dropdown" style="float: left;">
 				<a class="dropbtn">Hoạt động</a>
 				<div class="dropdown-content1" style="left: 0;">
-					<a href="${pageContext.request.contextPath}/danh-sach-hoat-dong">Danh sách các hoạt động</a> <a href="#">Lịch sử
+					<a href="${pageContext.request.contextPath}/danh-sach-hoat-dong">Danh sách các hoạt động</a>
+					<a href="${pageContext.request.contextPath}/lich-su-tham-gia">Lịch sử
 						tham gia</a>
 				</div>
 			</div></li>
@@ -34,10 +35,15 @@
 				href="${pageContext.request.contextPath}/register">Đăng ký</a></li>
 		</sec:authorize>
 		<sec:authorize access="isAuthenticated()">
-			<li style="float: right;"><a
-				href="${pageContext.request.contextPath}/logout">Đăng xuất</a></li>
-			<li style="float: right;"><a href="#">${logged.lastname}
-					${logged.firstname}</a></li>
+			<li><div class="dropdown" style="float: right;">
+				<a class="dropbtn" >${logged.lastname}
+					${logged.firstname}</a>
+				<div class="dropdown-content1" style="left: 0;">
+					<a href="${pageContext.request.contextPath}/thong-tin-ca-nhan">Thông tin cá nhân</a>
+					<a href="${pageContext.request.contextPath}/thay-doi-mat-khau">Thay đổi mật khẩu</a>
+					<a href="${pageContext.request.contextPath}/logout">Đăng xuất</a>
+				</div>
+			</div></li>			
 		</sec:authorize>
 		<div class="clearfix"></div>
 	</ul>

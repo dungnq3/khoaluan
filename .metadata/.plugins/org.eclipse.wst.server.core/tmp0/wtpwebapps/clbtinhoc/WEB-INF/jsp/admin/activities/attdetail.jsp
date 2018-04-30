@@ -22,7 +22,7 @@
 								<th>ID</th>
 								<th>Tên thành viên</th>
 								<th>Lớp</th>
-								<th>Trạng thái</th>
+								<th style="text-align: center;">Trạng thái</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -31,7 +31,16 @@
 									<td>${objUser.id}</td>
 									<td>${objUser.lastname} ${objUser.firstname}</td> 
 									<td>${objUser.klass}</td>
-									<td>${objUser.status}</td>
+									<td style="text-align: center;">
+										<c:choose>
+											<c:when test="${objUser.status eq 1}">
+												<span style="color: green" class="fa fa-check"></span>
+											</c:when>
+											<c:otherwise>
+												<span style="color: red" class="fa fa-ban"></span>
+											</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>

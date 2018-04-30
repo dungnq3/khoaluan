@@ -164,4 +164,13 @@
     <definition name="public.activities.history" extends="public.template">
     <put-attribute name="content" value="/WEB-INF/jsp/public/activities/history.jsp" />
   </definition>
+    <definition name="public.users.index" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/users/index.jsp" />
+  </definition>
+    <definition name="public.users.edit" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/users/edit.jsp" />
+  </definition>
+     <definition name="public.users.password" extends="public.template">
+    <put-attribute name="content" value="/WEB-INF/jsp/public/users/password.jsp" />
+  </definition>
 </tiles-definitions>

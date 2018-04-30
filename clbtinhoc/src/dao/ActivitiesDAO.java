@@ -119,4 +119,24 @@ public class ActivitiesDAO {
 		String sql = "SELECT activities.*, joined_at FROM activities JOIN user_activities ON activities.id = user_activities.id_activity WHERE id_user = ? ORDER BY joined_at";
 		return jdbcTemplate.query(sql, new Object[]{id_user},new BeanPropertyRowMapper<Activity_Users>(Activity_Users.class));
 	}
+
+	public int deleteItem(int id, int id2) {
+		String sql = "DELETE FROM user_activities WHERE id_activity = ? AND id_user = ?";
+		return jdbcTemplate.update(sql,new Object[]{id,id2});
+	}
+
+	public int updateJoined(int id) {
+		String sql = "UPDATE activities SET joined = joined - 1 WHERE id = ?";
+		return jdbcTemplate.update(sql, new Object[]{id});
+	}
+
+	public int getJoined(int id) {
+		String sql = "SELECT COUNT(*) FROM user_activities WHERE id_user = ?";
+		return jdbcTemplate.queryForObject(sql, new Object[]{id},Integer.class);
+	}
+
+	public List<Activity> getItemsByJoin(int id) {
+		String sql = "SELECT activities.* FROM activities JOIN user_activities ON activities.id = user_activities.id_activity WHERE id_user = ?";
+		return jdbcTemplate.query(sql, new Object[]{id},new BeanPropertyRowMapper<Activity>(Activity.class));
+	}
 }

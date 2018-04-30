@@ -1455,3 +1455,15 @@ font-size: 0.8em;
 .btn-register{
 	background: none;border: none;
 }
+.col-centered{
+	float:none;
+    margin: auto;
+}
+
+.col-centered a{
+    margin: 0 auto;
+    display: inline-block;
+}
+.col-pad{
+    padding-left: 150px; 
+}

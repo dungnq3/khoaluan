@@ -8,14 +8,14 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="&#x09;&lt;sec:authorize&gt;&lt;div class=&quot;col-lg-3 col-md-6&quot;&gt;"/>
+			<item value="&lt;div class=&quot;row&quot;&gt;"/>
 			<item value="dropdown-content"/>
 			<item value="html, body{"/>
 			<item value="&lt;%@ page language=&quot;java&quot; contentType=&quot;text/html; charset=UTF-8&quot;"/>
 			<item value="&lt;/form:errors&gt;&lt;/p&gt;"/>
 			<item value="&lt;p&gt;&lt;form:errors"/>
 			<item value="system"/>
-			<item value="System"/>
-			<item value=",description"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
